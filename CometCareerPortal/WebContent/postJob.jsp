@@ -5,11 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Post Job</title>
+<link rel="stylesheet" type="text/css" href="./ccpstyle.css">
 </head>
 <body>
-<h1><center>Post Job</center></h1>
-<form method="post" action="postJobServlet">
-	<frame>
+<h1>Post Job</h1>
+<form class="postJob" method="post" action="postJobServlet">
 	<table border="0" cellpadding="5" cellspacing="0" width="600">
 			
 	<tr>
@@ -19,7 +19,7 @@
 
 	<tr>
 			<td><b>Description:</b></td>
-			<td><textarea id="Description" name="Description" rows="6" cols="50"></textarea></td>
+			<td><textarea id="Description" name="Description" rows="6" cols="50"  style="width: 298px;"></textarea></td>
 	</tr>
 	<tr>
 			<td><b>Visa Category:</b></td>
@@ -47,11 +47,11 @@
 	</tr>
 	<tr>
 			<td><b>Requirements:</b></td>
-			<td><textarea id="Requirements" name="Requirements" rows="6" cols="50"></textarea></td>
+			<td><textarea id="Requirements" name="Requirements" rows="6" cols="50" style="width: 298px;"></textarea></td>
 	</tr>
 	<tr>
 			<td><b>Pre-Requisites:</b></td>
-			<td><textarea id="PreRequisites" name="PreRequisites" rows="6" cols="50"></textarea></td>
+			<td><textarea id="PreRequisites" name="PreRequisites" rows="6" cols="50" style="width: 298px;"></textarea></td>
 	</tr>
 	<tr>
 			<td><b>Job Link:</b></td>
@@ -68,7 +68,6 @@
 	</tr>
 	</table>
 	<br />
-	</frame>
 </form>
 </body>
 </html>

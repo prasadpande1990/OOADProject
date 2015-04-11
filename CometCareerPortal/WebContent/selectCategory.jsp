@@ -3,10 +3,11 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Registration</title>
+<link rel="stylesheet" type="text/css" href="./ccpstyle.css">
 </head>
 <body>
-<h1>Comet Career Portal Registration</h1>
-<form name="selectCategoryForm" method="post" action="selectCategoryServlet">
+<h1><i>Comet Career Portal</i><br/>Registration</h1>
+<form class="selectCategory" name="selectCategoryForm" method="post" action="selectCategoryServlet">
 <table>
 	<tr>
 		<td>Select Category</td>
@@ -20,7 +21,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td><input type="submit" value="Submit"></td>
+		<td colspan="2" align="center"><input type="submit" value="Submit"></td>
 	</tr>
 </table>
 </form>

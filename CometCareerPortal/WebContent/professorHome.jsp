@@ -7,35 +7,40 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Professor Home</title>
+<link rel="stylesheet" type="text/css" href="./ccpstyle.css">
 </head>
 <%
 	HttpSession session = request.getSession();
 	Professor prof = (Professor)session.getAttribute("professor");
 %>
 <body>
-<h1><center>Professor Home</center></h1>
-<h2>Welcome <%=prof.getFirstName()%>  <%=prof.getLastName()%>,</h2><br>
+<h1>Professor Home</h1>
+<h2 class="professorHome">&nbsp;Welcome <%=prof.getFirstName()%>  <%=prof.getLastName()%>,</h2><br>
+<div align="center" class="navButtons">
 <table>
 	<tr>
-		<form method="post" action="postJob.jsp">
-			<input type="submit" name="postJobButton" value="Post Job">
-		</form>
-	</tr>
-	<tr>
-		<form method="post" action="updateProfile.jsp">		
+		<td>
+			<form class="transparent" method="post" action="postJob.jsp">
+				<input type="submit" name="postJobButton" value="Post Job">
+			</form>
+		</td>
+		<td>
+		<form class="transparent" method="post" action="updateProfile.jsp">		
 			<input type="submit" name="updateProfileButton" value="Update Profile">
 		</form>
-	</tr>
-	<tr>
-		<form>
+		</td>
+		<td>
+		<form class="transparent">
 			<input type="submit" name="searchProfileButton" value="Search Profile">
 		</form>
-	</tr>
-	<tr>
-		<form method="post" action="LogoutServlet">
+		</td>
+		<td>
+		<form class="transparent" method="post" action="LogoutServlet">
 			<input type="submit" name="Logout" value="Logout">
 		</form>
+		</td>
 	</tr>
 </table>
+</div>
 </body>
 </html>

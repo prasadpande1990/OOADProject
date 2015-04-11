@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Work Experience Details</title>
+<link rel="stylesheet" type="text/css" href="./ccpstyle.css">
 </head>
 <%
 	String role;
@@ -22,53 +23,44 @@
 	session.setAttribute("role", role);
 %>
 <body>
-<h1><center><%=role%> Registration</center></h1>
-<h2>Add your Work Experience Here</h2>
-<form method="post" action="WorkExpDetailServlet">
-	<frame>
-	<table border="0" cellpadding="5" cellspacing="0" width="600">
-		<tr>
-				<td><b>Employer*:</b></td>
-				<td>
-					<input id="employer" name="employer" type="text" maxlength="60" style="width:250px; border:1px solid #999999" />
-				</td>
-		</tr>
-		<tr>
-				<td><b>Years of Experience*:</b></td>
-				<td>
-					<input id="yearsExp" name="yearsExp" type="text" maxlength="60" style="width:250px; border:1px solid #999999" />
-				</td>
-		</tr>
-		<tr>
-				<td><b>Company Designation*:</b></td>
-				<td>
-					<input id="designation" name="designation" type="text" maxlength="60" style="width:250px; border:1px solid #999999" />
-				</td>
-		</tr>
-		</frame>
-		<tr>
-				<td colspan="2" align="center">
-					<br />
-					<table border="0" cellpadding="0" cellspacing="0">
-						<tr valign="top">
-					</table>
-					<input type="submit" name="addWorkExp" value="Add Another" />
-				</td>
-				<td colspan="2" align="center">
-					<br />
-					<table border="0" cellpadding="0" cellspacing="0">
-						<tr valign="top">
-					</table>
-					<input type="submit" name="addWorkExp" value="Save & Next" />
-				</td>
-				<td colspan="2" align="center">
-					<br />
-					<table border="0" cellpadding="0" cellspacing="0">
-						<tr valign="top">
-					</table>
-					<input type="submit" name="addWorkExp" value="Skip" />
-				</td>	
-		</tr>		
+<h1><%=role%> Registration</h1>
+<h3 class="workExp">Add your Work Experience Here</h3>
+<form class="workExp" method="post" action="WorkExpDetailServlet">
+<table>
+	<tr>
+		<td><b>Employer:</b><b style="color:red;"> *</b></td>
+		<td>
+			<input id="employer" name="employer" type="text" maxlength="60" style="width:250px; border:1px solid #999999" />
+		</td>
+	</tr>
+	<tr>
+		<td><b>Years of Experience:</b><b style="color:red;"> *</b></td>
+		<td>
+			<input id="yearsExp" name="yearsExp" type="text" maxlength="60" style="width:250px; border:1px solid #999999" />
+		</td>
+	</tr>
+	<tr>
+		<td><b>Company Designation:</b><b style="color:red;"> *</b></td>
+		<td>
+			<input id="designation" name="designation" type="text" maxlength="60" style="width:250px; border:1px solid #999999" />
+		</td>
+	</tr>
+</table>
+<table>
+	<tr>
+		<td align="center">
+			<br />
+			<input type="submit" name="addWorkExp" value="Add Another" />
+		</td>
+		<td align="center">
+			<br />
+			<input type="submit" name="addWorkExp" value="Save & Next" />
+		</td>
+		<td align="center">
+			<br />
+			<input type="submit" name="addWorkExp" value="Skip" />
+		</td>	
+	</tr>		
 </table>	
 </form>
 </body>

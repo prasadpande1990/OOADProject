@@ -2,16 +2,16 @@
 <html>
 
 <head>
-<title>Professor Registration form</title>
+<title>Professor Registration</title>
+<link rel="stylesheet" type="text/css" href="./ccpstyle.css">
 </head>
 
 <body>
-<h1><center>Professor Registration form</center></h1>
-<form method="post" action="professorRegistrationServlet">
-<frame>
-<table border="0" cellpadding="5" cellspacing="0" width="600">
+<h1>Professor Registration</h1>
+<form class="professorReg" method="post" action="professorRegistrationServlet">
+<table>
 	<tr>
-		<td><b>First, Last Name*:</b></td>
+		<td><b>First and Last Name:</b><b style="color:red;"> *</b></td>
 		<td>
 			<input id="FirstName" name="FirstName" type="text" maxlength="60" style="width:146px; border:1px solid #999999" />
 			<input id="LastName" name="LastName" type="text" maxlength="60" style="width:146px; border:1px solid #999999" />
@@ -26,16 +26,16 @@
 		<td><input id="researchInterest" name="researchInterest" type="text" maxlength="120" style="width:300px; border:1px solid #999999" /></td>
 	</tr>
 	<tr>
-		<td><b>Email address*:</b></td>
+		<td><b>Email address:</b><b style="color:red;"> *</b></td>
 		<td><input id="EmailAddress" name="EmailAddress" type="text" maxlength="60" style="width:300px; border:1px solid #999999" /></td>
 	</tr>
 	<tr>
 		<td><b>Contact number:</b></td>
-		<td><input id="CellPhone" name="CellPhone" type="text" maxlength="43" style="width:250px; border:1px solid #999999" /></td>
+		<td><input id="CellPhone" name="CellPhone" type="text" maxlength="43" style="width:100px; border:1px solid #999999" /></td>
 	</tr>
 	<tr>
 		<td><b>Office Address:</b></td>
-		<td><textarea id="officeAddress" name="officeAddress" rows="4" cols="50"></textarea>
+		<td><textarea id="officeAddress" name="officeAddress" rows="4" cols="50" style="width: 298px;"></textarea>
 	</tr>
 	<tr>
 		<td><b>Department:</b></td>
@@ -51,39 +51,32 @@
 	</tr>
 	</table>
 	<br />
-	</frame>
-	<frame>
-		<table>
-			<tr>
-				<td><b>UserName*: </b></td>
-				<td><input id="username" name="username" type="text" maxlength="30" style="width:100px; border:1px solid #999999" /></td>
-			</tr>
-			<tr>
-				<td><b>Password*: </b></td>
-				<td><input name="password" type="password" maxlength="30" style="width:100px; border:1px solid #999999" /></td>			
-			</tr>
-			<tr>
-				<td><b>Confirm Password*: </b></td>
-				<td><input id="password" name="confirmPassowrd" type="password" maxlength="30" style="width:100px; border:1px solid #999999" /></td>			
-			</tr>			
-	</frame>
-	<tr>
-			<td colspan="2" align="center">
+	<table>
+		<tr>
+			<td><b>User name:</b><b style="color:red;"> *</b></td>
+			<td><input id="username" name="username" type="text" maxlength="30" style="width:100px; border:1px solid #999999" /></td>
+		</tr>
+		<tr>
+			<td><b>Password:</b><b style="color:red;"> *</b></td>
+			<td><input name="password" type="password" maxlength="30" style="width:100px; border:1px solid #999999" /></td>			
+		</tr>
+		<tr>
+			<td><b>Confirm Password:</b><b style="color:red;"> *</b></td>
+			<td><input id="password" name="confirmPassowrd" type="password" maxlength="30" style="width:100px; border:1px solid #999999" /></td>			
+		</tr>			
+	</table>
+	<table>
+		<tr>
+			<td align="center">
 				<br />
-				<table border="0" cellpadding="0" cellspacing="0">
-					<tr valign="top">
-				</table>
 				<input type="submit" value="Next" />
 			</td>
-			<td colspan="2" align="center">
+			<td align="center">
 				<br />
-				<table border="0" cellpadding="0" cellspacing="0">
-					<tr valign="top">
-				</table>
 				<input type="reset" value="Reset" />
 			</td>
 
-	</tr>
+		</tr>
 	</table>
 </form>
 </body>

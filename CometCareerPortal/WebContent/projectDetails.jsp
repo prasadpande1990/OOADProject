@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Add Project Details</title>
+<link rel="stylesheet" type="text/css" href="./ccpstyle.css">
 </head>
 <%
 	String role;
@@ -22,72 +23,67 @@
 	session.setAttribute("role", role);
 %>
 <body>
-<h1><center><%=role%> Registration</center></h1>
-<h2>Add your Projects Here</h2>
-<form method="post" action="ProjectDetailServlet">
-	<frame>
-	<table border="0" cellpadding="5" cellspacing="0" width="600">
+<h1><%=role%> Project</h1>
+<h3 class="projectDetails">Add your project here</h3>
+<form class="projectDetails" method="post" action="ProjectDetailServlet">
+	<table>
 		<tr>
-				<td><b>Project Title*:</b></td>
+				<td><b>Project Title:</b><b style="color:red;"> *</b></td>
 				<td>
 					<input id="title" name="title" type="text" maxlength="60" style="width:250px; border:1px solid #999999" />
 				</td>
 		</tr>
 		<tr>
-				<td><b>Project Description*:</b></td>
+				<td valign="top">
+					<b>Project Description:</b><b style="color:red;"> *</b></td>
 				<td>
 					<textarea id="description" name="description" style="width:250px; border:1px solid #999999; height: 250px"></textarea>
 				</td>
 		</tr>
 		<tr>
-				<td><b>Project Domain*:</b></td>
+				<td><b>Project Domain:</b><b style="color:red;"> *</b></td>
 				<td>
 					<input id="domain" name="domain" type="text" maxlength="60" style="width:250px; border:1px solid #999999" />
 				</td>
 		</tr>
 		<tr>
-				<td><b>Programming Languages Used*:</b></td>
+				<td><b>Programming Languages Used:</b><b style="color:red;"> *</b></td>
 				<td>
 					<input id="languages" name="languages" type="text" maxlength="100" style="width:250px; border:1px solid #999999" />
 				</td>
 		</tr>
 		<tr>
-				<td><b>Database Used(optional):</b></td>
+				<td><b>Database Used (<i>optional</i>):</b></td>
 				<td>
 					<input id="database" name="database" type="text" maxlength="100" style="width:250px; border:1px solid #999999" />
 				</td>
 		</tr>
 		<tr>
-				<td><b>Specific Tools/Frameworks Used (optional):</b></td>
+				<td><b>Specific Tools/Frameworks Used (<i>optional</i>):</b></td>
 				<td>
 					<input id="tools" name="tools" type="text" maxlength="100" style="width:250px; border:1px solid #999999" />
 				</td>
 		</tr>
 		<tr>
-				<td><b>Team Size*:</b></td>
+				<td><b>Team Size:</b><b style="color:red;"> *</b></td>
 				<td>
 					<input id="teamsize" name="teamsize" type="text" maxlength="100" style="width:250px; border:1px solid #999999" />
 				</td>
-		</tr>		
-		</frame>
+		</tr>
+	</table>
+	<table>		
 		<tr>
-				<td colspan="2" align="center">
+				<td align="center">
 					<br />
-					<table border="0" cellpadding="0" cellspacing="0">
-						<tr valign="top">
-					</table>
 					<input type="submit" name="addProject" value="Add Another" />
 				</td>
-				<td colspan="2" align="center">
+				<td align="center">
 					<br />
-					<table border="0" cellpadding="0" cellspacing="0">
-						<tr valign="top">
-					</table>
 					<input type="submit" name="addProject" value="Save & Next" />
 				</td>
 	
-		</tr>		
-</table>	
+		</tr>	
+	</table>	
 </form>
 </body>
 </html>

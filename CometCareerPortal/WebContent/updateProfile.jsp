@@ -5,8 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Update Profile</title>
+<link rel="stylesheet" type="text/css" href="./ccpstyle.css">
 </head>
 <body>
-<h1><center>Update Your Profile</center></h1>
+<h1>Update Your Profile</h1>
 </body>
 </html>

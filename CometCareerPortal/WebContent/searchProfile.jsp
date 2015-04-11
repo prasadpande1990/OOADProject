@@ -5,8 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Search Profile</title>
+<link rel="stylesheet" type="text/css" href="./ccpstyle.css">
 </head>
 <body>
-<h1><center>Browse Profile</center></h1>
+<h1>Browse Profile</h1>
 </body>
 </html>

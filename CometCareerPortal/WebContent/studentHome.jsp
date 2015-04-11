@@ -7,42 +7,45 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Student Home</title>
+<link rel="stylesheet" type="text/css" href="./ccpstyle.css">
 </head>
 <%
 	HttpSession session = request.getSession();
 	Student stud = (Student)session.getAttribute("student");
 %>
 <body>
-<h1><center>Student Home</center></h1>
-<h2>Welcome <%=stud.getFirstName()%>  <%=stud.getLastName()%>,</h2><br>
-
+<h1>Student Home</h1>
+<h2 class="studentHome">&nbsp;Welcome <%=stud.getFirstName()%>  <%=stud.getLastName()%>,</h2><br>
+<div align="center" class="navButtons">
 <table>
 	<tr>
-		<form method="post" action="postJob.jsp">
-			<input type="submit" name="postJobButton" value="Post Job">
-		</form>
-	</tr>
-	<tr>
-		<form method="post" action="updateProfile.jsp">		
-			<input type="submit" name="updateProfileButton" value="Update Profile">
-		</form>
-	</tr>
-	<tr>
-		<form>
-			<input type="submit" name="searchProfileButton" value="Search Profile">
-		</form>
-	</tr>
-	<tr>
-		<form method="post" action="searchJob.jsp">
-			<input type="submit" name="searchJobButton" value="Search Job">
-		</form>
-	</tr>
-	<tr>
-		<form method="post" action="LogoutServlet">
-			<input type="submit" name="Logout" value="Logout">
-		</form>
+		<td>
+			<form class="transparent" method="post" action="postJob.jsp">
+				<input type="submit" name="postJobButton" value="Post Job">
+			</form>
+		</td>
+		<td>
+			<form class="transparent" method="post" action="updateProfile.jsp">		
+				<input type="submit" name="updateProfileButton" value="Update Profile">
+			</form>
+		</td>
+		<td>
+			<form class="transparent">
+				<input type="submit" name="searchProfileButton" value="Search Profile">
+			</form>
+		</td>
+		<td>
+			<form class="transparent" method="post" action="searchJob.jsp">
+				<input type="submit" name="searchJobButton" value="Search Job">
+			</form>
+		</td>
+		<td>
+			<form class="transparent" method="post" action="LogoutServlet">
+				<input type="submit" name="Logout" value="Logout">
+			</form>
+		</td>
 	</tr>
 </table>
-
+</div>
 </body>
 </html>

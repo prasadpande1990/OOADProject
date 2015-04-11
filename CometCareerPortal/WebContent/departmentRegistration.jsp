@@ -5,8 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Department Registration</title>
+<link rel="stylesheet" type="text/css" href="./ccpstyle.css">
 </head>
 <body>
-<h1><center>Department Registration</center></h1>
+<h1>Department Registration</h1>
 </body>
 </html>

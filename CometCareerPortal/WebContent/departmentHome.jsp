@@ -6,29 +6,44 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Department Home</title>
+<link rel="stylesheet" type="text/css" href="./ccpstyle.css">
 </head>
 <%
 	HttpSession session = request.getSession();
 	Department dept = (Department)session.getAttribute("department");
 %>
 <body>
-<h2>Welcome Department of <%=dept.getDepartmentName()%>,</h2>
-<table>
-<tr><form method="post" action="postJobServlet">
-	<input type="submit" name="postJobButton" value="Post Job">
-</form></tr>
-<tr><form method="post" action="updateProfile.jsp">		
-	<input type="submit" name="updateProfileButton" value="Update Profile">
-</form></tr>
-<tr><form>
-	<input type="submit" name="searchProfileButton" value="Search Profile">
-</form></tr>
-<tr><form method="post" action="approvePostServlet">
-	<input type="submit" name="approvePostButton" value="Aprrove Job Post">
-</form></tr>		
-<tr><form method="post" action="LogoutServlet">
-	<input type="submit" name="Logout" value="Logout">
-</form></tr>
-</table>
+<h2 class="departmentHome"><br />&nbsp;Welcome Department of <%=dept.getDepartmentName()%>,</h2>
+<div align="center" class="navButtons">
+	<table>
+		<tr>
+			<td>
+				<form class="transparent" method="post" action="postJobServlet">
+					<input type="submit" name="postJobButton" value="Post Job">
+				</form>
+			</td>
+			<td>
+				<form class="transparent" method="post" action="updateProfile.jsp">		
+					<input type="submit" name="updateProfileButton" value="Update Profile">
+				</form>
+			</td>
+			<td>
+				<form class="transparent">
+					<input type="submit" name="searchProfileButton" value="Search Profile">
+				</form>
+			</td>
+			<td>
+				<form class="transparent" method="post" action="approvePostServlet">
+					<input type="submit" name="approvePostButton" value="Aprrove Job Post">
+				</form>
+			</td>		
+			<td>
+				<form class="transparent" method="post" action="LogoutServlet">
+					<input type="submit" name="Logout" value="Logout">
+				</form>
+			</td>
+		</tr>
+	</table>
+</div>
 </body>
 </html>

@@ -2,21 +2,21 @@
 <html>
 
 <head>
-<title>Company Registration form</title>
+<title>Company Registration</title>
+<link rel="stylesheet" type="text/css" href="./ccpstyle.css">
 </head>
 
 <body>
-<h1><center>Company Registration</center></h1>
-<form method="post" action="companyRegistrationServlet">
-<frame>
-<table border="0" cellpadding="5" cellspacing="0" width="600">
+<h1>Company Registration</h1>
+<form class="companyReg" method="post" action="companyRegistrationServlet">
+<table>
 <tr>
-<td><b>Name:</b></td>
+<td align="left"><b>Name:</b></td>
 <td><input id="companyName" name="companyName" type="text" maxlength="60" style="width:300px; border:1px solid #999999" /></td>
 </tr>
 <tr>
-<td><b>Description:</b></td>
-<td><textarea id="companyDescription" name="companyDescription" rows="6" cols="50"></textarea>
+<td valign="top"><b>Description:</b></td>
+<td><textarea id="companyDescription" name="companyDescription" rows="6" cols="50" style="width: 298px;"></textarea>
 </tr>
 <tr>
 <td><b>Company Location:</b></td>
@@ -28,30 +28,36 @@
 </tr>
 </table>
 <br />
-</frame>
-	<frame>
-		<table>
-			<tr>
-				<td><b>UserName*: </b></td>
-				<td><input id="username" name="username" type="text" maxlength="30" style="width:100px; border:1px solid #999999" /></td>
-			</tr>
-			<tr>
-				<td><b>Password*: </b></td>
-				<td><input name="password" type="password" maxlength="30" style="width:100px; border:1px solid #999999" /></td>			
-			</tr>
-			<tr>
-				<td><b>Confirm Password*: </b></td>
-				<td><input id="password" name="confirmPassowrd" type="password" maxlength="30" style="width:100px; border:1px solid #999999" /></td>			
-			</tr>			
-	</frame>
+<table>
 	<tr>
-			<td colspan="2" align="center">
+		<td>
+			<b>User name:</b><b style="color:red;"> *</b>
+		</td>
+		<td>
+			<input id="username" name="username" type="text" maxlength="30" style="width:100px; border:1px solid #999999" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<b>Password:</b><b style="color:red;"> *</b>
+		</td>
+		<td>
+			<input name="password" type="password" maxlength="30" style="width:100px; border:1px solid #999999" />
+		</td>			
+	</tr>
+	<tr>
+		<td>
+			<b>Confirm Password:</b><b style="color:red;"> *</b>
+		</td>
+		<td>
+			<input id="password" name="confirmPassowrd" type="password" maxlength="30" style="width:100px; border:1px solid #999999" />
+		</td>			
+	</tr>			
+	<tr>
+		<td colspan="2" align="center">
 			<br />
-			<table border="0" cellpadding="0" cellspacing="0">
-			<tr valign="top">
-			</table>
-				<input type="submit" value="Register" />
-			</td>
+			<input type="submit" value="Register" />
+		</td>
 	</tr>
 </table>
 </form>
