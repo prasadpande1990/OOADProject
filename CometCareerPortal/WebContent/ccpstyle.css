@@ -1,7 +1,7 @@
 body
 {
 	margin: 1;
-    	padding: 0;
+	padding: 0;
 	background-color: #C75B12;
 }
 
@@ -17,20 +17,33 @@ form
 	color: #FFFFFF;
 	font-family: Arial;
 	margin-left: auto;
-    	margin-right: auto;
-    	width: 25%;
-    	background-color: #008542;
-	padding-top: 18px;
-	padding-bottom: 18px;
+	margin-right: auto;
+	background-color: #008542;
 	outline-style: solid;
 	outline-color: #69BE28;
 }
 
+form.login
+{
+	width: 250px;
+	padding-top: 18px;
+	padding-bottom: 18px;
+}
+
+form.studentReg
+{
+	color: #FFFFFF;
+	width: 563px;
+	padding-top: 5px;
+	padding-bottom: 8px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
 form>table
 {
-	//background-color: #000000;
 	margin-left: auto;
-    	margin-right: auto;
+	margin-right: auto;
 }
 
 a

@@ -27,8 +27,8 @@
 <td><input id="website" name="website" type="url" maxlength="60" style="width:300px; border:1px solid #999999" /></td>
 </tr>
 </table>
-</br>
-	</frame>
+<br />
+</frame>
 	<frame>
 		<table>
 			<tr>

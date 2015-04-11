@@ -5,7 +5,7 @@
 <title>Registration</title>
 </head>
 <body>
-<h1><center>Comet Career Portal Registration</center></h1>
+<h1>Comet Career Portal Registration</h1>
 <form name="selectCategoryForm" method="post" action="selectCategoryServlet">
 <table>
 	<tr>
