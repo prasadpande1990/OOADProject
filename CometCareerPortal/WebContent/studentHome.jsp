@@ -12,9 +12,10 @@
 <%
 	HttpSession session = request.getSession();
 	Student stud = (Student)session.getAttribute("student");
+	session.setAttribute("role", "Student");
 %>
 <body>
-<h1>Student Home</h1>
+<h1>Student Center</h1>
 <h2 class="studentHome">&nbsp;Welcome <%=stud.getFirstName()%>  <%=stud.getLastName()%>,</h2><br>
 <div align="center" class="navButtons">
 <table>

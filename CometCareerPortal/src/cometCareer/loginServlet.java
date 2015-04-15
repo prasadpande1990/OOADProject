@@ -46,20 +46,22 @@ public class loginServlet extends HttpServlet {
 		int Status = 0;
 		try {
 			if(Category.equals("Student")) {
-				PreparedStatement ps=(PreparedStatement)con.prepareStatement("SELECT first_name,last_name,major,contact_number,email,mailing_address,department_id,username,password FROM STUDENT WHERE username = ? AND password = ?");
+				PreparedStatement ps=(PreparedStatement)con.prepareStatement("SELECT student_id,first_name,last_name,major,contact_number,email,mailing_address,StudentType,username,password FROM STUDENT WHERE username = ? AND password = ?");
 				ps.setString(1, username1);
 				ps.setString(2, password1);
 				rs = ps.executeQuery();
+				Student stud = new Student();
 				while(rs.next()) {		
-					Student stud = new Student();
 					stud.setFirstName(rs.getString("first_name"));
 					stud.setLastName(rs.getString("last_name"));
 					stud.setMajor(rs.getString("major"));
 					stud.setContactNumber(rs.getString("contact_number"));
 					stud.setEmail(rs.getString("email"));
 					stud.setMailingAddress(rs.getString("mailing_address"));
+					stud.setStudentType(rs.getString("StudentType"));
 					stud.setUsername(rs.getString("username"));
 					stud.setPassword(rs.getString("password"));
+					stud.setID(rs.getInt("student_id"));
 					session.setAttribute("student", stud);
 					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/studentHome.jsp");
 					dispatch.forward(request, response);
@@ -69,9 +71,8 @@ public class loginServlet extends HttpServlet {
 				ps.setString(1, username1);
 				ps.setString(2, password1);
 				rs = ps.executeQuery();
+				Department dept = new Department();
 				while(rs.next()) {		
-					Department dept = new Department();
-					
 					dept.setDepartmentName(rs.getNString("department_name"));
 					dept.setUsername("username");
 					dept.setPassword("password");
@@ -80,7 +81,44 @@ public class loginServlet extends HttpServlet {
 					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/departmentHome.jsp");
 					dispatch.forward(request, response);					
 				}
-			}	 			
+			} else if (Category.equals("Professor")) {
+				PreparedStatement ps=(PreparedStatement)con.prepareStatement("SELECT professor_id,first_name,last_name,professor_qualification,research_interest,contact_number,email,office_address FROM Professor WHERE username=? and password=?");
+				ps.setString(1, username1);
+				ps.setString(2, password1);
+				rs = ps.executeQuery();
+				Professor prof = new Professor();
+				while(rs.next()) {		
+					prof.setID(rs.getInt(1));
+					prof.setFirstName(rs.getString(2));
+					prof.setLastName(rs.getString(3));
+					prof.setQualification(rs.getString(4));
+					prof.setResearchInterest(rs.getString(5));
+					prof.setContactNumber(rs.getString(6));
+					prof.setEmail(rs.getString(7));
+					prof.setMailingAddress(rs.getString(8));
+					
+					session.setAttribute("professor", prof);
+					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/professorHome.jsp");
+					dispatch.forward(request, response);					
+				}				
+			} else {
+				PreparedStatement ps=(PreparedStatement)con.prepareStatement("SELECT company_id,name,description,location,website FROM COMPANY WHERE username=? and password=?");
+				ps.setString(1, username1);
+				ps.setString(2, password1);
+				rs = ps.executeQuery();
+				Company comp = new Company();
+				while(rs.next()) {		
+					comp.setId(rs.getInt(1));
+					comp.setName(rs.getString(2));
+					comp.setDescription(rs.getString(3));
+					comp.setLocation(rs.getString(4));
+					comp.setWebsite(rs.getString(5));
+					
+					session.setAttribute("company", comp);
+					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/companyHome.jsp");
+					dispatch.forward(request, response);					
+				}								
+			}
 		} catch(SQLException e) {
 			System.out.println("SQL Syntax Error..!!!");
 			e.printStackTrace();			

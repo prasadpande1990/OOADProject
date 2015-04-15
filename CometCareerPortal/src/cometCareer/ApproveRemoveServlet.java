@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Random;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,10 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import cometClasses.*;
+import cometClasses.Job;
 
-@WebServlet(description = "Servlet for company Registration", urlPatterns = { "/companyRegistrationServlet" })
-public class companyRegistrationServlet extends HttpServlet {
+@WebServlet("/ApproveRemoveServlet")
+public class ApproveRemoveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected static String username="root";
 	protected static String password="1234Hjkl";
@@ -28,9 +28,8 @@ public class companyRegistrationServlet extends HttpServlet {
 	protected static  Connection con;
 	protected static  ResultSet rs;
 	protected static  String url="jdbc:mysql://localhost:3306/"+dbname;
-
        
-    public companyRegistrationServlet() {
+    public ApproveRemoveServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,51 +39,43 @@ public class companyRegistrationServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		
-	 Company com= new Company();
-		Random rm = new Random ();
-// Getting the objects from the registration Form JSp		
-		String companyName = request.getParameter("companyName");
-		String description = request.getParameter("companyDescription");
-		String location = request.getParameter("companylocation");
-		String website = request.getParameter("website");
-		String username1 = request.getParameter("username");
-		String password1 = request.getParameter("password");
-		HttpSession session = request.getSession(true);
-		
-		com.setName(companyName);
-		com.setDescription(description);
-		com.setLocation(location);
-		com.setWebsite(website);
-		com.setUsername(username1);
-		com.setPassword(password1);
-		
+		String[] post=request.getParameterValues("postCheckBox");
+		HttpSession session = request.getSession();
+		ArrayList<Job> job= (ArrayList<Job>)session.getAttribute("jobList");
+		String query=null;
+		String keyPressed = request.getParameter("approvepost");
 		getDBConnection(request,response);
 		try {
-			PreparedStatement ps=(PreparedStatement)con.prepareStatement("INSERT INTO company(company_id,name,description,location,website,username,password) values (?,?,?,?,?,?,?)"); 
 			
-			ps.setInt(1, rm.nextInt(15000));
-			ps.setString(2,companyName);
-			ps.setString(3, description);
-			ps.setString(4,location);
-			ps.setString(5,website);
-			ps.setString(6, username1);
-			ps.setString(7, password1);
+			if(keyPressed.equals("Aprrove")) {
+				query="UPDATE JOB SET status='A' WHERE job_id=?";
+				PreparedStatement ps = (PreparedStatement)con.prepareStatement(query);				
+				for (int i=0;i < post.length;i++) {
+                    int job_id = job.get(Integer.parseInt((post[i]))).getJob_id();
+                    ps.setInt(1, job_id);
+                    ps.executeUpdate();
+				}
+			}  else {
+				query="DELETE FROM JOB WHERE job_id=?";
+				PreparedStatement ps = (PreparedStatement)con.prepareStatement(query);
+				for (int i=0;i < post.length;i++) {
+                    int job_id = job.get(Integer.parseInt((post[i]))).getJob_id();
+                    ps.setInt(1, job_id);
+                    ps.executeUpdate();
+				}
+			}
 			
-			ps.executeUpdate();
-			
-			session.setAttribute("company", com);
-			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/companyHome.jsp");
+			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/departmentHome.jsp");
 			dispatch.forward(request, response);								
-			
 			
 		} catch(SQLException e) {
 			System.out.println("SQL Syntax Error..!!!");
 			e.printStackTrace();			
-		}		
-		
-}
-public static void getDBConnection(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		}
+	}
+	public static void getDBConnection(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
 				Class.forName("com.mysql.jdbc.Driver");
 				con=DriverManager.getConnection(url,username,password);
@@ -97,4 +88,5 @@ public static void getDBConnection(HttpServletRequest request, HttpServletRespon
 				e.printStackTrace();
 			}
 		}
+
 }

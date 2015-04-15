@@ -58,7 +58,10 @@
 		</td>
 		<td align="center">
 			<br />
-			<input type="submit" name="addWorkExp" value="Skip" />
+			<%if(session.getAttribute("page").equals("UpdateProfile")) { %>
+			<%} else {%>
+				<input type="submit" name="addWorkExp" value="Skip" />
+			<%}%>
 		</td>	
 	</tr>		
 </table>	

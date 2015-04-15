@@ -44,9 +44,8 @@ public class studentRegistrationServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Student stud= new Student();
-		Random rm = new Random ();
+		
 // Getting the objects from the registration Form JSp
-		int id=rm.nextInt(15000);
 		String firstName = request.getParameter("FirstName");
 		String LastName = request.getParameter("LastName");
 		String major = request.getParameter("Major");
@@ -58,7 +57,7 @@ public class studentRegistrationServlet extends HttpServlet {
 		String City = request.getParameter("City");
 		String State = request.getParameter("State");
 		String Zip = request.getParameter("Zip");
-		String mailingAddress = StreetAddress1 + StreetAddress2 + City + State + Zip;
+		String mailingAddress = StreetAddress1 +" "+ StreetAddress2 + " "+ City +" "+ State +" "+ Zip;
 		String username1 = request.getParameter("username");
 		String password1 = request.getParameter("password");
 		HttpSession session = request.getSession(true);	
@@ -72,7 +71,7 @@ public class studentRegistrationServlet extends HttpServlet {
 		stud.setMailingAddress(mailingAddress);		
 		stud.setUsername(username1);
 		stud.setPassword(password1);
-		stud.setID(id);
+		
 //Database Insertion
 		getDBConnection(request,response);
 		try {

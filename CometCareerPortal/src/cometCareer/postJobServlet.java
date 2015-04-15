@@ -1,13 +1,11 @@
 package cometCareer;
 
 import java.io.IOException;
-import java.rmi.server.RMIClassLoader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import cometClasses.Student;
 import cometClasses.*;
+
 @WebServlet(description = "Servlet for Posting a Job", urlPatterns = { "/postJobServlet" })
 public class postJobServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -42,13 +40,28 @@ public class postJobServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		Random rd = new Random();
-		String query ="INSERT INTO job(job_id,title,description,visa_category,job_type,joining_requirement,pre_requsite,status,author_id,link) VALUES (?,?,?,?,?,?,?,?,?,?)";
+		String query ="INSERT INTO job(title,description,visa_category,job_type,joining_requirement,pre_requsite,status,author_id,link) VALUES (?,?,?,?,?,?,?,?,?)";
+		
 		HttpSession session= request.getSession();
 		Student stud = (Student)session.getAttribute("student"); 
+		Professor prof = (Professor)session.getAttribute("professor");
+		Company comp = (Company) session.getAttribute("company");
+		Department dept = (Department) session.getAttribute("department");
+		String role=(String) session.getAttribute("role");
+		int id=0;
 		
+		System.out.println(role);
+		if(role.equals("Student")) {
+			id=stud.getID();
+		} else if (role.equals("Professor")) {
+			id=prof.getID();
+		} else if (role.equals("Department")) {
+			id=dept.getDepartmentID();
+		} else {
+			id=comp.getId();
+		}
 //Taking Parameters from JSP
-		int jobId = rd.nextInt(15000);
+		
 		String Title = request.getParameter("Title");
 		String Description = request.getParameter("Description");
 		String VisaCategory = request.getParameter("VisaCategory");
@@ -62,19 +75,31 @@ public class postJobServlet extends HttpServlet {
 		getDBConnection(request, response);
 		try {
 				PreparedStatement ps=(PreparedStatement)con.prepareStatement(query);
-				ps.setInt(1, jobId);
-				ps.setString(2, Title);
-				ps.setString(3, Description);
-				ps.setString(4, VisaCategory);
-				ps.setString(5, JobType);
-				ps.setString(6, Requirements);
-				ps.setString(7, PreRequisites);
-				ps.setString(8, Status);
-				ps.setInt(9,stud.getID());
-				ps.setString(10, JobLink);
-				
+				ps.setString(1, Title);
+				ps.setString(2, Description);
+				ps.setString(3, VisaCategory);
+				ps.setString(4, JobType);
+				ps.setString(5, Requirements);
+				ps.setString(6, PreRequisites);
+				ps.setString(7, Status);
+				ps.setInt(8,id);
+				ps.setString(9, JobLink);
+				System.out.println(id);
 				ps.executeUpdate();
 				
+				if(role.equals("Student")) {
+					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/studentHome.jsp");
+					dispatch.forward(request, response);								
+				} else if (role.equals("Professor")) {
+					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/professorHome.jsp");
+					dispatch.forward(request, response);												
+				} else if (role.equals("Company")) {
+					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/companyHome.jsp");
+					dispatch.forward(request, response);																	
+				} else {
+					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/departmentHome.jsp");
+					dispatch.forward(request, response);																	
+				}
 		} catch(SQLException e) {
 			System.out.println("SQL Syntax Error..!!!");
 			e.printStackTrace();			

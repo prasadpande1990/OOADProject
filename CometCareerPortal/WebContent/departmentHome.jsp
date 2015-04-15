@@ -11,6 +11,7 @@
 <%
 	HttpSession session = request.getSession();
 	Department dept = (Department)session.getAttribute("department");
+	session.setAttribute("role", "Department");
 %>
 <body>
 <h2 class="departmentHome"><br />&nbsp;Welcome Department of <%=dept.getDepartmentName()%>,</h2>
@@ -18,7 +19,7 @@
 	<table>
 		<tr>
 			<td>
-				<form class="transparent" method="post" action="postJobServlet">
+				<form class="transparent" method="post" action="postJob.jsp">
 					<input type="submit" name="postJobButton" value="Post Job">
 				</form>
 			</td>

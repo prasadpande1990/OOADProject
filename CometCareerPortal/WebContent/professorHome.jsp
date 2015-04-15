@@ -6,15 +6,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Professor Home</title>
+<title>Faculty Home</title>
 <link rel="stylesheet" type="text/css" href="./ccpstyle.css">
 </head>
 <%
 	HttpSession session = request.getSession();
 	Professor prof = (Professor)session.getAttribute("professor");
+	session.setAttribute("role", "Professor");
 %>
 <body>
-<h1>Professor Home</h1>
+<h1>Faculty Center</h1>
 <h2 class="professorHome">&nbsp;Welcome <%=prof.getFirstName()%>  <%=prof.getLastName()%>,</h2><br>
 <div align="center" class="navButtons">
 <table>

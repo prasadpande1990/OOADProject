@@ -2,6 +2,7 @@ package cometClasses;
 
 public class Company implements JobService
 {
+	private int id;
 	private String name;
 	private String description;
 	private String location;
@@ -75,5 +76,13 @@ public class Company implements JobService
 	public void searchProfile() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}	
 }

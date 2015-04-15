@@ -70,7 +70,7 @@ public class ProjectDetailServlet extends HttpServlet {
 		}
 		
 		String keyPressed = request.getParameter("addProject");
-		System.out.println(keyPressed);
+		
 //Database Insertion
 		getDBConnection(request,response);
 		try {
@@ -96,17 +96,30 @@ public class ProjectDetailServlet extends HttpServlet {
 			ps.setInt(2, id);
 			ps.executeUpdate();
 			
-			if(keyPressed.equals("Save & Next")) {
+			if(session.getAttribute("page").equals("UpdateProfile")) {
+				if(keyPressed.equals("Save & Next")) {
 
-				RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/workExperience.jsp");
-				dispatch.forward(request, response);								
+					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/updateProfile.jsp");
+					dispatch.forward(request, response);								
+					
+				} else {
+					
+					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/projectDetails.jsp");
+					dispatch.forward(request, response);				
+				}			
 				
 			} else {
-				
-				RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/projectDetails.jsp");
-				dispatch.forward(request, response);				
-			}			
-			
+				if(keyPressed.equals("Save & Next")) {
+	
+					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/addNewSkill.jsp");
+					dispatch.forward(request, response);								
+					
+				} else {
+					
+					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/projectDetails.jsp");
+					dispatch.forward(request, response);				
+				}			
+			}
 		} catch(SQLException e) {
 			System.out.println("SQL Syntax Error..!!!");
 			e.printStackTrace();			
