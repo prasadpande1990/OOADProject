@@ -40,7 +40,7 @@ public class postJobServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		String query ="INSERT INTO job(title,description,visa_category,job_type,joining_requirement,pre_requsite,status,author_id,link) VALUES (?,?,?,?,?,?,?,?,?)";
+		String query ="INSERT INTO job(title,description,visa_category,job_type,primary_requirement,secondary_requirement,additional_requirement,status,author_id,link) VALUES (?,?,?,?,?,?,?,?,?,?)";
 		
 		HttpSession session= request.getSession();
 		Student stud = (Student)session.getAttribute("student"); 
@@ -66,8 +66,9 @@ public class postJobServlet extends HttpServlet {
 		String Description = request.getParameter("Description");
 		String VisaCategory = request.getParameter("VisaCategory");
 		String JobType = request.getParameter("JobType");
-		String Requirements = request.getParameter("Requirements");
-		String PreRequisites = request.getParameter("PreRequisites");
+		String primaryreq = request.getParameter("primaryreq");
+		String secondaryreq = request.getParameter("secondaryreq");
+		String additionalreq = request.getParameter("additionalreq");
 		String JobLink = request.getParameter("JobLink");
 		String Status = "P";
 		
@@ -79,12 +80,13 @@ public class postJobServlet extends HttpServlet {
 				ps.setString(2, Description);
 				ps.setString(3, VisaCategory);
 				ps.setString(4, JobType);
-				ps.setString(5, Requirements);
-				ps.setString(6, PreRequisites);
-				ps.setString(7, Status);
-				ps.setInt(8,id);
-				ps.setString(9, JobLink);
-				System.out.println(id);
+				ps.setString(5, primaryreq);
+				ps.setString(6, secondaryreq);
+				ps.setString(7, additionalreq);
+				ps.setString(8,Status);
+				ps.setInt(9,id);
+				ps.setString(10, JobLink);
+				
 				ps.executeUpdate();
 				
 				if(role.equals("Student")) {

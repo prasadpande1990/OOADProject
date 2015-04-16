@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -43,7 +44,7 @@ public class loginServlet extends HttpServlet {
 		String Category = request.getParameter("Category");
 		getDBConnection(request, response);
 		HttpSession session = request.getSession(true);
-		int Status = 0;
+		int Status = 0, id =0;
 		try {
 			if(Category.equals("Student")) {
 				PreparedStatement ps=(PreparedStatement)con.prepareStatement("SELECT student_id,first_name,last_name,major,contact_number,email,mailing_address,StudentType,username,password FROM STUDENT WHERE username = ? AND password = ?");
@@ -51,7 +52,8 @@ public class loginServlet extends HttpServlet {
 				ps.setString(2, password1);
 				rs = ps.executeQuery();
 				Student stud = new Student();
-				while(rs.next()) {		
+				while(rs.next()) {	
+					id=rs.getInt("student_id");
 					stud.setFirstName(rs.getString("first_name"));
 					stud.setLastName(rs.getString("last_name"));
 					stud.setMajor(rs.getString("major"));
@@ -61,11 +63,58 @@ public class loginServlet extends HttpServlet {
 					stud.setStudentType(rs.getString("StudentType"));
 					stud.setUsername(rs.getString("username"));
 					stud.setPassword(rs.getString("password"));
-					stud.setID(rs.getInt("student_id"));
+					stud.setID(id);
 					session.setAttribute("student", stud);
-					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/studentHome.jsp");
-					dispatch.forward(request, response);
 				} 
+// Getting Project Details
+				
+				ps=(PreparedStatement)con.prepareStatement("SELECT project_title,project_description,project_domain FROM STUDENT stud, PROJECTS proj,student_projects sp WHERE stud.student_id=sp.student_id AND sp.project_id=proj.project_id AND stud.student_id=?");
+				ps.setInt(1,id);
+				rs = ps.executeQuery();
+				ArrayList<Project> projList = new ArrayList<Project>(); 
+				while(rs.next()) {
+					Project proj = new Project();
+					proj.setProjectTitle(rs.getString(1));
+					proj.setProjectDescription(rs.getString(2));
+					proj.setProjectDomain(rs.getString(3));
+					projList.add(proj);
+				}
+				
+				session.setAttribute("projList", projList);
+//Getting Employment Details
+				
+				ps=(PreparedStatement)con.prepareStatement("SELECT  employer,years_of_exp,company_designation FROM employment_details emp, STUDENT stud WHERE emp.student_id=stud.student_id AND stud.student_id=?");
+				ps.setInt(1,id);
+				rs = ps.executeQuery();
+				ArrayList<WorkExperience> workList = new ArrayList<WorkExperience>(); 
+				while(rs.next()) {
+					WorkExperience work = new WorkExperience();
+					work.setEmployer(rs.getString(1));
+					work.setYearsOfexp(rs.getInt(2));
+					work.setDesignation(rs.getString(3));
+					workList.add(work);
+				}			
+				
+				session.setAttribute("workList", workList);
+				
+//Getting Skill Details
+
+				ps=(PreparedStatement)con.prepareStatement("SELECT skill,years_of_exp,proficiency FROM STUDENT stud,SKILLS skill WHERE stud.student_id = skill.candidate_id AND stud.student_id=?");
+				ps.setInt(1,id);
+				rs = ps.executeQuery();
+				ArrayList<Skills> skillsList = new ArrayList<Skills>(); 
+				while(rs.next()) {
+					Skills skill = new Skills();
+					skill.setSkillName(rs.getString(1));
+					skill.setYearsOfExp(rs.getInt(2));
+					skill.setProficiency(rs.getInt(3));
+					skillsList.add(skill);
+				}				
+				
+				session.setAttribute("skillsList", skillsList);
+				RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/studentHome.jsp");
+				dispatch.forward(request, response);
+				
 			} else if(Category.equals("Department")) {
 				PreparedStatement ps=(PreparedStatement)con.prepareStatement("SELECT department_id,department_name,username,password FROM DEPARTMENT WHERE username = ? AND password = ?");
 				ps.setString(1, username1);
@@ -87,8 +136,9 @@ public class loginServlet extends HttpServlet {
 				ps.setString(2, password1);
 				rs = ps.executeQuery();
 				Professor prof = new Professor();
-				while(rs.next()) {		
-					prof.setID(rs.getInt(1));
+				while(rs.next()) {	
+					id = rs.getInt(1);
+					prof.setID(id);
 					prof.setFirstName(rs.getString(2));
 					prof.setLastName(rs.getString(3));
 					prof.setQualification(rs.getString(4));
@@ -96,8 +146,52 @@ public class loginServlet extends HttpServlet {
 					prof.setContactNumber(rs.getString(6));
 					prof.setEmail(rs.getString(7));
 					prof.setMailingAddress(rs.getString(8));
+					// Getting Project Details
 					
+					ps=(PreparedStatement)con.prepareStatement("SELECT project_title,project_description,project_domain FROM PROFESSOR prof, PROJECTS proj,projects_professor sp WHERE prof.professor_id=sp.professor_id AND sp.project_id=proj.project_id AND prof.professor_id=?");
+					ps.setInt(1,id);
+					rs = ps.executeQuery();
+					ArrayList<Project> projList = new ArrayList<Project>(); 
+					while(rs.next()) {
+						Project proj = new Project();
+						proj.setProjectTitle(rs.getString(1));
+						proj.setProjectDescription(rs.getString(2));
+						proj.setProjectDomain(rs.getString(3));
+						projList.add(proj);
+					}
+					
+					session.setAttribute("projList", projList);
+	//Getting Employment Details
+					
+					ps=(PreparedStatement)con.prepareStatement("SELECT  employer,years_of_exp,company_designation FROM employment_details emp, PROFESSOR prof WHERE emp.student_id=prof.professor_id AND prof.professor_id=?");
+					ps.setInt(1,id);
+					rs = ps.executeQuery();
+					ArrayList<WorkExperience> workList = new ArrayList<WorkExperience>(); 
+					while(rs.next()) {
+						WorkExperience work = new WorkExperience();
+						work.setEmployer(rs.getString(1));
+						work.setYearsOfexp(rs.getInt(2));
+						work.setDesignation(rs.getString(3));
+						workList.add(work);
+					}			
+					
+					session.setAttribute("workList", workList);
+					
+	//Getting Skill Details
+
+					ps=(PreparedStatement)con.prepareStatement("SELECT skill,years_of_exp,proficiency FROM PROFESSOR prof,SKILLS skill WHERE prof.professor_id = skill.candidate_id AND prof.professor_id=?");
+					ps.setInt(1,id);
+					rs = ps.executeQuery();
+					ArrayList<Skills> skillsList = new ArrayList<Skills>(); 
+					while(rs.next()) {
+						Skills skill = new Skills();
+						skill.setSkillName(rs.getString(1));
+						skill.setYearsOfExp(rs.getInt(2));
+						skill.setProficiency(rs.getInt(3));
+						skillsList.add(skill);
+					}									
 					session.setAttribute("professor", prof);
+					session.setAttribute("skillsList", skillsList);
 					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/professorHome.jsp");
 					dispatch.forward(request, response);					
 				}				

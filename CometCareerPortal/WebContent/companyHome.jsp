@@ -39,5 +39,30 @@
 	</tr>
 </table>
 </div>
+<center>
+<h2>Company Description</h2>
+<table border="2">
+	<tr>
+		<td>Company Id: </td>
+		<td><%=comp.getId()%></td>
+	</tr>
+	<tr>
+		<td>Name: </td>
+		<td><%=comp.getName()%></td>
+	</tr>
+	<tr>
+		<td>Description: </td>
+		<td><%=comp.getDescription()%></td>
+	</tr>
+	<tr>
+		<td>Location: </td>
+		<td><%=comp.getLocation()%></td>
+	</tr>
+	<tr>
+		<td>Website: </td>
+		<td><a href="<%=comp.getWebsite()%>"><%=comp.getWebsite()%></a></td>
+	</tr>
+</table>
+</center>
 </body>
 </html>

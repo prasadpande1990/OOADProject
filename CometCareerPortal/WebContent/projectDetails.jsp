@@ -21,10 +21,71 @@
 		session.setAttribute("student", stud);
 	}	
 	session.setAttribute("role", role);
+	String page1=(String)session.getAttribute("page");
 %>
 <body>
-<h1><%=role%> Project</h1>
+<h1><%=role%> Projects</h1>
 <h3 class="projectDetails">Add your project here</h3>
+<%if(page1.equals("UpdateProfile")) {%>>
+<div align="center" class="navButtons">
+<table>
+<tr>
+<%if(session.getAttribute("role").equals("Student")) {%>
+		<td>
+			<form class="transparent" method="post" action="studentHome.jsp">
+				<input type="submit" name="HomeButton" value="Home">
+			</form>
+		</td>
+<%} else if (session.getAttribute("role").equals("Professor")) {%>
+		<td>
+			<form class="transparent" method="post" action="professorHome.jsp">
+				<input type="submit" name="HomeButton" value="Home">
+			</form>
+		</td>
+<%} else if (session.getAttribute("role").equals("Department")) {%>
+		<td>
+			<form class="transparent" method="post" action="departmentHome.jsp">
+				<input type="submit" name="HomeButton" value="Home">
+			</form>
+		</td>
+<%} else {%>
+		<td>
+			<form class="transparent" method="post" action="companyHome.jsp">
+				<input type="submit" name="HomeButton" value="Home">
+			</form>
+		</td>
+<%} %>
+		<td>
+			<form class="transparent" method="post" action="postJob.jsp">
+				<input type="submit" name="postJobButton" value="Post Job">
+			</form>
+		</td>
+		<td>
+			<form class="transparent" method="post" action="updateProfile.jsp">		
+				<input type="submit" name="updateProfileButton" value="Update Profile">
+			</form>
+		</td>
+		<td>
+			<form class="transparent">
+				<input type="submit" name="searchProfileButton" value="Search Profile">
+			</form>
+		</td>
+<%if(session.getAttribute("role").equals("Student")) {%>
+		<td>
+			<form class="transparent" method="post" action="searchJob.jsp">
+				<input type="submit" name="searchJobButton" value="Search Job">
+			</form>
+		</td>
+<%}%>
+		<td>
+			<form class="transparent" method="post" action="LogoutServlet">
+				<input type="submit" name="Logout" value="Logout">
+			</form>
+		</td>
+	</tr>
+</table>
+</div>
+<%}%>
 <form class="projectDetails" method="post" action="ProjectDetailServlet">
 	<table>
 		<tr>
