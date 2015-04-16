@@ -3,7 +3,7 @@ public class Skills
 {
 	private String skillName;
 	private int yearsOfExp;
-	private String proficiency;
+	private int proficiency; //proficiency is the rating out of 5
 	
 	public void addNewSkill()
 	{
