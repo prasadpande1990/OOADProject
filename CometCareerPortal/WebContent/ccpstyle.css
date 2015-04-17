@@ -134,10 +134,32 @@ form.workExp
 	padding-left: 5px;
 }
 
+form.approvePost
+{
+	outline-color: transparent;
+	background-color: transparent;
+}
+
+form.addNewSkill
+{
+	color: #FFFFFF;
+	width: 512px;
+	padding-top: 5px;
+	padding-bottom: 8px;
+	padding-left: 5px;
+}
+
 form>table
 {
 	margin-left: auto;
 	margin-right: auto;
+}
+
+table.green
+{
+	color: #FFFFFF;
+	border-color: #69BE28;
+	background-color: #008542;
 }
 
 a

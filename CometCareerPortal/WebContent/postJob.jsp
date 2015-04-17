@@ -83,7 +83,7 @@
 	</tr>
 
 	<tr>
-			<td><b>Description:</b></td>
+			<td valign="top"><b>Description:</b></td>
 			<td><textarea id="Description" name="Description" rows="6" cols="50"  style="width: 298px;"></textarea></td>
 	</tr>
 	<tr>

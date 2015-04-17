@@ -51,7 +51,7 @@
 <br><br>
 <center>
 <h2>Personal Information</h2>
-<table border="2">
+<table class="green" border="2">
 	<tr>
 		<td>Student Id: </td>
 		<td><%=stud.getID()%></td>
@@ -89,7 +89,7 @@
 <% 
 	ArrayList<Skills> skillsList = (ArrayList<Skills>)session.getAttribute("skillsList");
 %>
-<table border="2">
+<table class="green" border="2">
 	<tr>
 		<td>Skill</td>
 		<td>Years of Experience</td>
@@ -107,7 +107,7 @@
 <% 
 	ArrayList<Project> projList = (ArrayList<Project>)session.getAttribute("projList");
 %>
-<table border="2">
+<table class="green" border="2">
 	<tr>
 		<td>Title</td>
 		<td>Description</td>
@@ -125,7 +125,7 @@
 <% 
 	ArrayList<WorkExperience> workList = (ArrayList<WorkExperience>)session.getAttribute("workList");
 %>
-<table border="2">
+<table class="green" border="2">
 	<tr>
 		<td>Employer</td>
 		<td>Years of Service</td>

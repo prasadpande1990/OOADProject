@@ -18,49 +18,51 @@
 <div align="center" class="navButtons">
 <table>
 	<tr>
-		<form class="transparent" method="post" action="postJob.jsp">
-			<input type="submit" name="postJobButton" value="Post Job">
-		</form>
-	</tr>
-	<tr>
-		<form class="transparent" method="post" action="updateCompanyProfile.jsp">		
-			<input type="submit" name="updateProfileButton" value="Update Profile">
-		</form>
-	</tr>
-	<tr>
-		<form class="transparent">
-			<input type="submit" name="searchProfileButton" value="Search Profile">
-		</form>
-	</tr>
-	<tr>
-		<form class="transparent" method="post" action="LogoutServlet">
-			<input type="submit" name="Logout" value="Logout">
-		</form>
+		<td>
+			<form class="transparent" method="post" action="postJob.jsp">
+				<input type="submit" name="postJobButton" value="Post Job">
+			</form>
+		</td>
+		<td>
+			<form class="transparent" method="post" action="updateCompanyProfile.jsp">		
+				<input type="submit" name="updateProfileButton" value="Update Profile">
+			</form>
+		</td>
+		<td>
+			<form class="transparent">
+				<input type="submit" name="searchProfileButton" value="Search Profile">
+			</form>
+		</td>
+		<td>
+			<form class="transparent" method="post" action="LogoutServlet">
+				<input type="submit" name="Logout" value="Logout">
+			</form>
+		</td>
 	</tr>
 </table>
 </div>
 <center>
 <h2>Company Description</h2>
-<table border="2">
+<table class="green" border="2">
 	<tr>
 		<td>Company Id: </td>
-		<td><%=comp.getId()%></td>
+		<td><%=comp.getId()%>test</td>
 	</tr>
 	<tr>
 		<td>Name: </td>
-		<td><%=comp.getName()%></td>
+		<td><%=comp.getName()%>test</td>
 	</tr>
 	<tr>
 		<td>Description: </td>
-		<td><%=comp.getDescription()%></td>
+		<td><%=comp.getDescription()%>test</td>
 	</tr>
 	<tr>
 		<td>Location: </td>
-		<td><%=comp.getLocation()%></td>
+		<td><%=comp.getLocation()%>test</td>
 	</tr>
 	<tr>
 		<td>Website: </td>
-		<td><a href="<%=comp.getWebsite()%>"><%=comp.getWebsite()%></a></td>
+		<td><a href="<%=comp.getWebsite()%>"><%=comp.getWebsite()%>test</a></td>
 	</tr>
 </table>
 </center>

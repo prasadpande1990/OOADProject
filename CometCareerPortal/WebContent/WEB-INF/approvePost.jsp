@@ -15,9 +15,8 @@
 	ArrayList<Job> job= (ArrayList<Job>)session.getAttribute("jobList");
 %>
 <body>
-<br />
-<form class="approvePost" method="post" action="ApproveRemoveServlet">
-<table class="green" border=5 cellpadding="4" cellspacing="2">
+<form method="post" action="ApproveRemoveServlet">
+<table border=5 cellpadding="4" cellspacing="2">
 	<tr>
 		<td><b>Id</b></td>
 		<td><b>Title</b></td>
@@ -27,14 +26,12 @@
 	</tr>
 <% for(int i=0; i<job.size(); i++) { %> 
         <tr>      
-            <td>
-            	<a href="http://localhost:8080/CometCareerPortal/jobDetailServlet"><%=job.get(i).getJob_id()%></a>
-            	<input type="hidden" name="jobId" value="<%=job.get(i).getJob_id()%>">
-            </td>
+            <td><a href="http://localhost:8080/CometCareerPortal/jobDetailServlet"><%=job.get(i).getJob_id()%></a></td>
+            <input type="hidden" name="jobId" value="<%=job.get(i).getJob_id()%>">
             <td><%=job.get(i).getTitle()%></td>
             <td><%=job.get(i).getJob_type()%></td>
             <td><%=job.get(i).getAuthor_id()%></td>
-            <td align="center"><input type="checkbox" name="postCheckBox" value="<%=(i)%>"></td>
+            <td><input type="checkbox" name="postCheckBox" value="<%=(i)%>"></td>
         </tr>
 <% } %>	
 </table>
