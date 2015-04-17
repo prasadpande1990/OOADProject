@@ -19,8 +19,13 @@
 <table>
 	<tr>
 		<td>
+			<form class="transparent" method="post" action="companyHome.jsp">
+				<input type="submit" name="HomeButton" value="Home">
+			</form>
+		</td>
+		<td>
 			<form class="transparent" method="post" action="postJob.jsp">
-				<input type="submit" name="postJobButton" value="Post Job">
+			<input type="submit" name="postJobButton" value="Post Job">
 			</form>
 		</td>
 		<td>
@@ -43,26 +48,26 @@
 </div>
 <center>
 <h2>Company Description</h2>
-<table class="green" border="2">
+<table border="2">
 	<tr>
 		<td>Company Id: </td>
-		<td><%=comp.getId()%>test</td>
+		<td><%=comp.getId()%></td>
 	</tr>
 	<tr>
 		<td>Name: </td>
-		<td><%=comp.getName()%>test</td>
+		<td><%=comp.getName()%></td>
 	</tr>
 	<tr>
 		<td>Description: </td>
-		<td><%=comp.getDescription()%>test</td>
+		<td><%=comp.getDescription()%></td>
 	</tr>
 	<tr>
 		<td>Location: </td>
-		<td><%=comp.getLocation()%>test</td>
+		<td><%=comp.getLocation()%></td>
 	</tr>
 	<tr>
 		<td>Website: </td>
-		<td><a href="<%=comp.getWebsite()%>"><%=comp.getWebsite()%>test</a></td>
+		<td><a href="<%=comp.getWebsite()%>"><%=comp.getWebsite()%></a></td>
 	</tr>
 </table>
 </center>

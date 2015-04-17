@@ -66,6 +66,7 @@ public class studentRegistrationServlet extends HttpServlet {
 		stud.setFirstName(firstName);
 		stud.setLastName(LastName);
 		stud.setMajor(major);
+		stud.setStudentType(studentType);
 		stud.setEmail(email);
 		stud.setContactNumber(phone);
 		stud.setMailingAddress(mailingAddress);		
@@ -74,18 +75,8 @@ public class studentRegistrationServlet extends HttpServlet {
 		
 //Database Insertion
 		getDBConnection(request,response);
-		try {
-			PreparedStatement ps=(PreparedStatement)con.prepareStatement("INSERT INTO student(first_name,last_name,major,contact_number,email,mailing_address,username,password,StudentType) values (?,?,?,?,?,?,?,?,?)"); 
-			ps.setString(1,firstName);
-			ps.setString(2, LastName);
-			ps.setString(3,major);
-			ps.setString(4,phone);
-			ps.setString(5,email);
-			ps.setString(6,mailingAddress);
-			ps.setString(7,username1);
-			ps.setString(8,password1);
-			ps.setString(9,studentType);
-			ps.executeUpdate();
+		stud.addNewStudent(stud,con);
+		try{
 			
 			Statement stmt = (Statement) con.createStatement();
 			rs= stmt.executeQuery("SELECT COALESCE(MAX(student_id),0) AS id FROM STUDENT");	
@@ -93,6 +84,7 @@ public class studentRegistrationServlet extends HttpServlet {
 				stud.setID(rs.getInt(1));
 			}			
 			session.setAttribute("student", stud);
+			session.setAttribute("page", "registration");
 			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/projectDetails.jsp");
 			dispatch.forward(request, response);
 			

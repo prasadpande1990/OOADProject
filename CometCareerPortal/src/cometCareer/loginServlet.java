@@ -44,7 +44,7 @@ public class loginServlet extends HttpServlet {
 		String Category = request.getParameter("Category");
 		getDBConnection(request, response);
 		HttpSession session = request.getSession(true);
-		int Status = 0, id =0;
+		int id =0;
 		try {
 			if(Category.equals("Student")) {
 				PreparedStatement ps=(PreparedStatement)con.prepareStatement("SELECT student_id,first_name,last_name,major,contact_number,email,mailing_address,StudentType,username,password FROM STUDENT WHERE username = ? AND password = ?");
@@ -64,8 +64,10 @@ public class loginServlet extends HttpServlet {
 					stud.setUsername(rs.getString("username"));
 					stud.setPassword(rs.getString("password"));
 					stud.setID(id);
-					session.setAttribute("student", stud);
+					
 				} 
+				
+				ProfileItem item = new ProfileItem();
 // Getting Project Details
 				
 				ps=(PreparedStatement)con.prepareStatement("SELECT project_title,project_description,project_domain FROM STUDENT stud, PROJECTS proj,student_projects sp WHERE stud.student_id=sp.student_id AND sp.project_id=proj.project_id AND stud.student_id=?");
@@ -80,7 +82,7 @@ public class loginServlet extends HttpServlet {
 					projList.add(proj);
 				}
 				
-				session.setAttribute("projList", projList);
+				item.setProjectList(projList);
 //Getting Employment Details
 				
 				ps=(PreparedStatement)con.prepareStatement("SELECT  employer,years_of_exp,company_designation FROM employment_details emp, STUDENT stud WHERE emp.student_id=stud.student_id AND stud.student_id=?");
@@ -95,8 +97,7 @@ public class loginServlet extends HttpServlet {
 					workList.add(work);
 				}			
 				
-				session.setAttribute("workList", workList);
-				
+				item.setWorkList(workList);
 //Getting Skill Details
 
 				ps=(PreparedStatement)con.prepareStatement("SELECT skill,years_of_exp,proficiency FROM STUDENT stud,SKILLS skill WHERE stud.student_id = skill.candidate_id AND stud.student_id=?");
@@ -111,7 +112,9 @@ public class loginServlet extends HttpServlet {
 					skillsList.add(skill);
 				}				
 				
-				session.setAttribute("skillsList", skillsList);
+				item.setSkillsList(skillsList);
+				stud.setProfile(item);
+				session.setAttribute("student", stud);
 				RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/studentHome.jsp");
 				dispatch.forward(request, response);
 				
@@ -160,7 +163,8 @@ public class loginServlet extends HttpServlet {
 						projList.add(proj);
 					}
 					
-					session.setAttribute("projList", projList);
+					ProfileItem item = new ProfileItem();
+					item.setProjectList(projList);
 	//Getting Employment Details
 					
 					ps=(PreparedStatement)con.prepareStatement("SELECT  employer,years_of_exp,company_designation FROM employment_details emp, PROFESSOR prof WHERE emp.student_id=prof.professor_id AND prof.professor_id=?");
@@ -175,8 +179,7 @@ public class loginServlet extends HttpServlet {
 						workList.add(work);
 					}			
 					
-					session.setAttribute("workList", workList);
-					
+					item.setWorkList(workList);					
 	//Getting Skill Details
 
 					ps=(PreparedStatement)con.prepareStatement("SELECT skill,years_of_exp,proficiency FROM PROFESSOR prof,SKILLS skill WHERE prof.professor_id = skill.candidate_id AND prof.professor_id=?");
@@ -190,8 +193,9 @@ public class loginServlet extends HttpServlet {
 						skill.setProficiency(rs.getInt(3));
 						skillsList.add(skill);
 					}									
+					item.setSkillsList(skillsList);
+					prof.setProfile(item);
 					session.setAttribute("professor", prof);
-					session.setAttribute("skillsList", skillsList);
 					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/professorHome.jsp");
 					dispatch.forward(request, response);					
 				}				

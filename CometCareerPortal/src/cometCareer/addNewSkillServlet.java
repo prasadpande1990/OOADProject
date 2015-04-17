@@ -3,7 +3,6 @@ package cometCareer;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -16,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import cometClasses.Professor;
+import cometClasses.Skills;
 import cometClasses.Student;
 
 @WebServlet(description = "Servlet to add new skills for the candidate", urlPatterns = { "/addNewSkillServlet" })
@@ -45,6 +45,11 @@ public class addNewSkillServlet extends HttpServlet {
 		String proficiency = request.getParameter("proficiency");
 		int id2=0;
 		
+		Skills sk = new Skills();
+		sk.setSkillName(skill);
+		sk.setYearsOfExp(Integer.parseInt(yearsExp));
+		sk.setProficiency(Integer.parseInt(proficiency));
+		
 		HttpSession session=request.getSession();
 		String role=(String)session.getAttribute("role");
 		System.out.println(role);
@@ -59,40 +64,29 @@ public class addNewSkillServlet extends HttpServlet {
 		
 		String keyPressed = request.getParameter("addNewSkill");
 		//Database Insertion
-			getDBConnection(request,response);
-			try {
-				PreparedStatement ps=(PreparedStatement)con.prepareStatement("INSERT INTO SKILLS(skill,years_of_exp,proficiency,candidate_id) VALUES(?,?,?,?)"); 
-				ps.setString(1,skill);
-				ps.setString(2,yearsExp);
-				ps.setString(3,proficiency);
-				ps.setInt(4, id2);
-				ps.executeUpdate();
+		getDBConnection(request,response);
+		sk.addNewSkill(sk, con, id2);		
+		if(session.getAttribute("page").equals("UpdateProfile")) {
+				if(keyPressed.equals("Save & Next")) {
 				
-				if(session.getAttribute("page").equals("UpdateProfile")) {
-					if(keyPressed.equals("Save & Next")) {
-						
-						RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/updateProfile.jsp");
-						dispatch.forward(request, response);								
-					} else {
-						
-						RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/addNewSkill.jsp");
-						dispatch.forward(request, response);				
-					}					
+					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/updateProfile.jsp");
+					dispatch.forward(request, response);								
 				} else {
-					if(keyPressed.equals("Save & Next")) {
-		
-						RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/workExperience.jsp");
-						dispatch.forward(request, response);								
+					
+					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/addNewSkill.jsp");
+					dispatch.forward(request, response);				
+				}					
+		} else {
+				if(keyPressed.equals("Save & Next")) {
+	
+					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/workExperience.jsp");
+					dispatch.forward(request, response);								
 					} else {
 						
 						RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/addNewSkill.jsp");
 						dispatch.forward(request, response);				
 					}
-				}
-			} catch(SQLException e) {
-				System.out.println("SQL Syntax Error..!!!");
-				e.printStackTrace();			
-			}
+		}
 	}
 	public static void getDBConnection(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{

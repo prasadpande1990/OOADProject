@@ -21,6 +21,11 @@
 <table>
 	<tr>
 		<td>
+			<form class="transparent" method="post" action="professorHome.jsp">
+				<input type="submit" name="HomeButton" value="Home">
+			</form>
+		</td>
+		<td>
 			<form class="transparent" method="post" action="postJob.jsp">
 				<input type="submit" name="postJobButton" value="Post Job">
 			</form>
@@ -45,9 +50,9 @@
 </div>
 <center>
 <h2>Personal Information</h2>
-<table class="green" border="2">
+<table border="2">
 	<tr>
-		<td>Student Id: </td>
+		<td>Professor Id: </td>
 		<td><%=prof.getID()%></td>
 	</tr>
 	<tr>
@@ -81,9 +86,9 @@
 </table>
 <h2>Technical Skills</h2>
 <% 
-	ArrayList<Skills> skillsList = (ArrayList<Skills>)session.getAttribute("skillsList");
+	ArrayList<Skills> skillsList = (ArrayList<Skills>)prof.getProfile().getSkillsList();
 %>
-<table class="green" border="2">
+<table border="2">
 	<tr>
 		<td>Skill</td>
 		<td>Years of Experience</td>
@@ -99,9 +104,9 @@
 </table>
 <h2>Project Details</h2>
 <% 
-	ArrayList<Project> projList = (ArrayList<Project>)session.getAttribute("projList");
+	ArrayList<Project> projList = (ArrayList<Project>)prof.getProfile().getProjectList();
 %>
-<table class="green" border="2">
+<table border="2">
 	<tr>
 		<td>Title</td>
 		<td>Description</td>
@@ -117,9 +122,9 @@
 </table>
 <h2>Employment Details</h2>
 <% 
-	ArrayList<WorkExperience> workList = (ArrayList<WorkExperience>)session.getAttribute("workList");
+	ArrayList<WorkExperience> workList = (ArrayList<WorkExperience>)prof.getProfile().getWorkList();
 %>
-<table class="green" border="2">
+<table border="2">
 	<tr>
 		<td>Employer</td>
 		<td>Years of Service</td>

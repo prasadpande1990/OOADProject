@@ -1,0 +1,9 @@
+CometCareerPortal/WebContent/addNewSkill.jsp       | 33 +++++-------
+ CometCareerPortal/WebContent/approvePost.jsp       | 14 ++++--
+ CometCareerPortal/WebContent/ccpstyle.css          | 22 ++++++++
+ CometCareerPortal/WebContent/companyHome.jsp       | 50 ++++++++++---------
+ CometCareerPortal/WebContent/postJob.jsp           |  2 +-
+ CometCareerPortal/WebContent/professorHome.jsp     |  8 +--
+ CometCareerPortal/WebContent/studentHome.jsp       |  8 +--
+ .../WebContent/updatePersonalInfo.jsp              | 12 ++---
+ CometCareerPortal/WebContent/updateProfile.jsp     |  5 +-

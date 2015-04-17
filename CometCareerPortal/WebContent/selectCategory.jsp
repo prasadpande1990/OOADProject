@@ -13,10 +13,10 @@
 		<td>Select Category</td>
 		<td>
     		<select name="Category">
+    			<option value="Select">Select</option>
     			<option value="Student">Student</option>
     			<option value="Professor">Professor</option>
     			<option value="Company">Company</option>
-    			<option value="Department">Department</option>
 			</select>		
 		</td>
 	</tr>

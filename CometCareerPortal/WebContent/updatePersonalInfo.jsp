@@ -38,13 +38,13 @@
 		<tr>
 			<td><b>Major:</b><b style="color:red;"> *</b></td>
 			<td>
-				<input id="Major" name="Major" type="text" maxlength="500" value="<%=stud.getMajor()%>" style="width:148px; border:1px solid #999999" />
+				<input id="Major" name="Major" type="text" maxlength="500" value="<%=stud.getMajor()%>" style="width:146px; border:1px solid #999999" />
 			</td>
 		</tr>	
 		<tr>
 			<td><b>Student Type:</b><b style="color:red;"> *</b></td>
 			<td>
-				<input id="StudentType" name="StudentType" type="text" maxlength="500" value="<%=stud.getStudentType()%>" style="width:148px; border:1px solid #999999" />
+				<input id="StudentType" name="StudentType" type="text" maxlength="500" value="<%=stud.getStudentType()%>" style="width:146px; border:1px solid #999999" />
 			</td>
 		</tr>	
 		<tr>
@@ -56,12 +56,12 @@
 			<td><input id="CellPhone" name="CellPhone" type="text" maxlength="43" value="<%=stud.getContactNumber()%>" style="width:100px; border:1px solid #999999" /></td>
 		</tr>
 		<tr>
-			<td valign="top"><b>Address:</b><b style="color:red;"> *</b></td>
-			<td><textarea id="Address" name="Address" type="text" maxlength="800" style="width:298px; border:1px solid #999999"><%=stud.getMailingAddress()%></textarea></td>
+			<td><b>Address:</b><b style="color:red;"> *</b></td>
+			<td><textarea id="Address" name="Address" type="text" maxlength="800" style="width:300px; border:1px solid #999999"><%=stud.getMailingAddress()%></textarea></td>
 		</tr>
 	</table>
 <%} else {%>
-	<table border="0" cellpadding="5" cellspacing="0" width="600">
+	<table>
 		<tr>
 			<td><b>First and Last Name:</b><b style="color:red;"> *</b></td>
 			<td>
@@ -86,7 +86,7 @@
 			<td><input id="CellPhone" name="prof_CellPhone" type="text" maxlength="43" value="<%=prof.getContactNumber()%>" style="width:100px; border:1px solid #999999" /></td>
 		</tr>
 		<tr>
-			<td valign="top"><b>Office Address:</b></td>
+			<td><b>Office Address:</b></td>
 			<td><textarea id="officeAddress" name="prof_officeAddress" rows="4" cols="50" style="width: 298px;"><%=prof.getMailingAddress()%></textarea>
 		</tr>
 	</table>

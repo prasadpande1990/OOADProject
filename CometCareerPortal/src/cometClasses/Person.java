@@ -1,5 +1,9 @@
 package cometClasses;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 
 public abstract class Person implements JobService
 {
@@ -12,7 +16,7 @@ public abstract class Person implements JobService
 	private String username;
 	private String password;
 	private String mailingAddress;
-
+	private ProfileItem profile;
 	
 	public String getMailingAddress() {
 		return mailingAddress;
@@ -21,11 +25,6 @@ public abstract class Person implements JobService
 	public void setMailingAddress(String mailingAddress) {
 		this.mailingAddress = mailingAddress;
 	}
-
-	public void registerAccount()
-	{
-		return;
-	}
 	
 	public boolean updateInfo()
 	{
@@ -33,9 +32,27 @@ public abstract class Person implements JobService
 	}
 	
 	@Override
-	public void postJob()
+	public void postJob(Job job,Connection con,int id)
 	{
-		return;
+		String query ="INSERT INTO job(title,description,visa_category,job_type,primary_requirement,secondary_requirement,additional_requirement,status,author_id,link) VALUES (?,?,?,?,?,?,?,?,?,?)";
+		try {
+			PreparedStatement ps=(PreparedStatement)con.prepareStatement(query);
+			ps.setString(1, job.getTitle());
+			ps.setString(2, job.getDescription());
+			ps.setString(3, job.getVisa_category());
+			ps.setString(4, job.getJob_type());
+			ps.setString(5, job.getPrimaryreq());
+			ps.setString(6, job.getSecondaryreq());
+			ps.setString(7, job.getAdditionalreq());
+			ps.setString(8,"P");
+			ps.setInt(9,id);
+			ps.setString(10, job.getLink());
+			
+			ps.executeUpdate();
+		} catch(SQLException e) {
+			System.out.println("SQL Syntax Error..!!!");
+			e.printStackTrace();			
+		}						
 	}
 
 	@Override
@@ -119,6 +136,14 @@ public abstract class Person implements JobService
 
 	public void setMajor(String major) {
 		this.major = major;
+	}
+
+	public ProfileItem getProfile() {
+		return profile;
+	}
+
+	public void setProfile(ProfileItem profile) {
+		this.profile = profile;
 	}
 
 }

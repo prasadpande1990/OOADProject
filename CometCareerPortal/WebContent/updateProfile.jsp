@@ -14,7 +14,7 @@
 	
 %>
 <body>
-<h1>Update Your Profile</h1>
+<h1><center>Update Your Profile</center></h1>
 <div align="center" class="navButtons">
 <table>
 <tr>
@@ -72,6 +72,9 @@
 		</td>
 	</tr>
 </table>
+</div>
+
+<div align="center" class="navButtons">
 <table>
 	<tr>
 

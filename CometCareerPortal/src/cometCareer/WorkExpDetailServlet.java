@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,8 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import cometClasses.Professor;
 import cometClasses.Student;
+import cometClasses.WorkExperience;
 
 @WebServlet(description = "Inserting work experience details for Student;", urlPatterns = { "/WorkExpDetailServlet" })
 public class WorkExpDetailServlet extends HttpServlet {
@@ -46,9 +49,14 @@ public class WorkExpDetailServlet extends HttpServlet {
 		String designation = request.getParameter("designation");
 		int id2=0;
 	
+		WorkExperience work = new WorkExperience();
+		work.setEmployer(employer);
+		work.setYearsOfexp(Integer.parseInt(yearsExp));
+		work.setDesignation(designation);
+		
 		HttpSession session=request.getSession();
 		String role=(String)session.getAttribute("role");
-		System.out.println(role);
+		
 		if(role.equals("Student")) {
 			Student stud=(Student)session.getAttribute("student");
 			id2= stud.getID();
@@ -62,53 +70,34 @@ public class WorkExpDetailServlet extends HttpServlet {
 		if ((keyPressed.equals("Save & Next"))|| keyPressed.equals("Add Another")) {
 			//Database Insertion
 			getDBConnection(request,response);
-			try {
-				PreparedStatement ps=(PreparedStatement)con.prepareStatement("INSERT INTO EMPLOYMENT_DETAILS(employer,years_of_exp,company_designation,student_id) VALUES(?,?,?,?)"); 
-				ps.setString(1,employer);
-				ps.setString(2,yearsExp);
-				ps.setString(3,designation);
-				ps.setInt(4, id2);
-				ps.executeUpdate();
-				
-				if(session.getAttribute("page").equals("UpdateProfile")) {
-					if(keyPressed.equals("Save & Next")) {
-						RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/updateProfile.jsp");
-						dispatch.forward(request, response);						
-					} else {
-						
-						RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/workExperience.jsp");
-						dispatch.forward(request, response);				
-					}								
+			
+			work.addNewWorkExperience(work, con, role, id2);
+			if(session.getAttribute("page").equals("UpdateProfile")) {
+				if(keyPressed.equals("Save & Next")) {
+					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/updateProfile.jsp");
+					dispatch.forward(request, response);						
 				} else {
-					if(keyPressed.equals("Save & Next")) {
-		
-						if(role.equals("Student")) {
-							RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/studentHome.jsp");
-							dispatch.forward(request, response);
-						} else {
-							RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/professorHome.jsp");
-							dispatch.forward(request, response);						
-						}
-						
-					} else {
-						
-						RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/workExperience.jsp");
-						dispatch.forward(request, response);				
-					}			
-				}
-			} catch(SQLException e) {
-				System.out.println("SQL Syntax Error..!!!");
-				e.printStackTrace();			
-			}		
-		}  else {	
-			if(role.equals("Student")) {
-				RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/studentHome.jsp");
-				dispatch.forward(request, response);
+					
+					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/workExperience.jsp");
+					dispatch.forward(request, response);				
+				}								
 			} else {
-				RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/professorHome.jsp");
-				dispatch.forward(request, response);						
+				if(keyPressed.equals("Save & Next")) {
+						
+						RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/index.html");
+						dispatch.forward(request, response);
+					
+				} else {
+					
+					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/workExperience.jsp");
+					dispatch.forward(request, response);				
+				}			
 			}
-		}
+		} else {	
+		
+			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/index.html");
+			dispatch.forward(request, response);		
+	 }
 	}
 	public static void getDBConnection(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{

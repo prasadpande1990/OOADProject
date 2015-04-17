@@ -7,10 +7,35 @@ public class Job {
 	private String description;
 	private String visa_category;
 	private String job_type;
-	private String joining_requirement;
-	private String pre_requsite;
+	private String primaryreq;
+	private String secondaryreq;
+	private String additionalreq;
 	private int author_id;
 	private String link;
+
+	public String getPrimaryreq() {
+		return primaryreq;
+	}
+
+	public void setPrimaryreq(String primaryreq) {
+		this.primaryreq = primaryreq;
+	}
+
+	public String getSecondaryreq() {
+		return secondaryreq;
+	}
+
+	public void setSecondaryreq(String secondaryreq) {
+		this.secondaryreq = secondaryreq;
+	}
+
+	public String getAdditionalreq() {
+		return additionalreq;
+	}
+
+	public void setAdditionalreq(String additionalreq) {
+		this.additionalreq = additionalreq;
+	}
 
 	public int getJob_id() {
 		return job_id;
@@ -51,22 +76,6 @@ public class Job {
 
 	public void setJob_type(String job_type) {
 		this.job_type = job_type;
-	}
-
-	public String getJoining_requirement() {
-		return joining_requirement;
-	}
-	
-	public void setJoining_requirement(String joining_requirement) {
-		this.joining_requirement = joining_requirement;
-	}
-
-	public String getPre_requsite() {
-		return pre_requsite;
-	}
-
-	public void setPre_requsite(String pre_requsite) {
-		this.pre_requsite = pre_requsite;
 	}
 
 	public int getAuthor_id() {

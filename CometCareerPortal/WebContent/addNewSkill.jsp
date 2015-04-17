@@ -23,41 +23,48 @@
 	session.setAttribute("role", role);
 %>
 <body>
-<h1><%=role%> Registration</h1>
+<h1><center><%=role%> Registration</center></h1>
 <h2>Add Technical Skills</h2>
 <form class="addNewSkill" method="post" action="addNewSkillServlet">
+	<frame>
 	<table border="0" cellpadding="5" cellspacing="0" width="600">
 		<tr>
-				<td><b>Skill:</b><b style="color:red;"> *</b></td>
+				<td><b>Skill*:</b></td>
 				<td>
 					<input id="skill" name="skill" type="text" maxlength="60" style="width:250px; border:1px solid #999999" />
 				</td>
 		</tr>
 		<tr>
-				<td><b>Years of Experience:</b><b style="color:red;"> *</b></td>
+				<td><b>Years of Experience*:</b></td>
 				<td>
 					<input id="yearsExp" name="yearsExp" type="text" maxlength="60" style="width:250px; border:1px solid #999999" />
 				</td>
 		</tr>
 		<tr>
-				<td><b>Proficiency:</b><b style="color:red;"> *</b>
-				<br />Rate on the scale of 5
-				<br />(1-Beginner, 5-Expert)</td>
-				<td valign="top">
+				<td><b>Proficiency*:</b>(Rate on the scale of 5 (1-Beginner,5-Expert))</td>
+				<td>
 					<input id="proficiency" name="proficiency" type="text" maxlength="60" style="width:250px; border:1px solid #999999" />
 				</td>
 		</tr>
-	</table>
-	<table>
+		</frame>
+
 		<tr>
-				<td>
+				<td colspan="2" align="center">
+					<br />
+					<table border="0" cellpadding="0" cellspacing="0">
+						<tr valign="top">
+					</table>
 					<input type="submit" name="addNewSkill" value="Add Another" />
 				</td>
-				<td>
+				<td colspan="2" align="center">
+					<br />
+					<table border="0" cellpadding="0" cellspacing="0">
+						<tr valign="top">
+					</table>
 					<input type="submit" name="addNewSkill" value="Save & Next" />
 				</td>
 		</tr>		
-	</table>	
+</table>	
 </form>
 </body>
 </html>

@@ -19,13 +19,14 @@
 	<table>
 		<tr>
 			<td>
+				<form class="transparent" method="post" action="departmentHome.jsp">
+					<input type="submit" name="HomeButton" value="Home">
+				</form>
+			</td>		
+
+			<td>
 				<form class="transparent" method="post" action="postJob.jsp">
 					<input type="submit" name="postJobButton" value="Post Job">
-				</form>
-			</td>
-			<td>
-				<form class="transparent" method="post" action="updateProfile.jsp">		
-					<input type="submit" name="updateProfileButton" value="Update Profile">
 				</form>
 			</td>
 			<td>

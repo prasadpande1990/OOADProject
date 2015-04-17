@@ -3,10 +3,8 @@ package cometCareer;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import cometClasses.*;
+import cometClasses.Company;
 
 @WebServlet(description = "Servlet for company Registration", urlPatterns = { "/companyRegistrationServlet" })
 public class companyRegistrationServlet extends HttpServlet {
@@ -42,7 +40,7 @@ public class companyRegistrationServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	 Company com= new Company();
-		Random rm = new Random ();
+		
 // Getting the objects from the registration Form JSp		
 		String companyName = request.getParameter("companyName");
 		String description = request.getParameter("companyDescription");
@@ -52,36 +50,18 @@ public class companyRegistrationServlet extends HttpServlet {
 		String password1 = request.getParameter("password");
 		HttpSession session = request.getSession(true);
 		
-		com.setName(companyName);
-		com.setDescription(description);
-		com.setLocation(location);
-		com.setWebsite(website);
-		com.setUsername(username1);
-		com.setPassword(password1);
+			com.setName(companyName);
+			com.setDescription(description);
+			com.setLocation(location);
+			com.setWebsite(website);
+			com.setUsername(username1);
+			com.setPassword(password1);
 		
-		getDBConnection(request,response);
-		try {
-			PreparedStatement ps=(PreparedStatement)con.prepareStatement("INSERT INTO company(company_id,name,description,location,website,username,password) values (?,?,?,?,?,?,?)"); 
-			
-			ps.setInt(1, rm.nextInt(15000));
-			ps.setString(2,companyName);
-			ps.setString(3, description);
-			ps.setString(4,location);
-			ps.setString(5,website);
-			ps.setString(6, username1);
-			ps.setString(7, password1);
-			
-			ps.executeUpdate();
-			
+			getDBConnection(request,response);
+			com=com.addNewCompany(com,con);
 			session.setAttribute("company", com);
-			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/companyHome.jsp");
+			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/index.html");
 			dispatch.forward(request, response);								
-			
-			
-		} catch(SQLException e) {
-			System.out.println("SQL Syntax Error..!!!");
-			e.printStackTrace();			
-		}		
 		
 }
 public static void getDBConnection(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

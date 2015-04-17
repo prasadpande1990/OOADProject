@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.mysql.jdbc.Statement;
-
 import cometClasses.Professor;
 import cometClasses.Student;
 
@@ -46,6 +44,7 @@ public class updateProfileServlet extends HttpServlet {
 		
 		HttpSession session= request.getSession();
 		String role = (String)session.getAttribute("role");
+		
 		if(role.equals("Student")) {
 			String firstName = request.getParameter("FirstName");
 			String LastName = request.getParameter("LastName");
@@ -57,39 +56,22 @@ public class updateProfileServlet extends HttpServlet {
 			
 			
 			Student stud = (Student)session.getAttribute("student");
-			int id = stud.getID();
+			stud.setFirstName(firstName);
+			stud.setLastName(LastName);
+			stud.setMajor(major);
+			stud.setStudentType(studentType);
+			stud.setEmail(email);
+			stud.setContactNumber(phone);
+			stud.setMailingAddress(mailingAddress);
+						
+//Database Insertion
+			getDBConnection(request,response);
+			stud.updatePersonalInfo(stud, con);
 			
-			String query  = "UPDATE STUDENT SET first_name=?,last_name=?,major=?,contact_number=?,email=?,mailing_address=?,StudentType=? WHERE student_id = ?"; 
-			//Setting the parameters for the student object that we need to pass to the next jsp 
-					stud.setFirstName(firstName);
-					stud.setLastName(LastName);
-					stud.setMajor(major);
-					stud.setEmail(email);
-					stud.setContactNumber(phone);
-					stud.setMailingAddress(mailingAddress);		
-					
-			//Database Insertion
-					getDBConnection(request,response);
-					try {
-							PreparedStatement ps=(PreparedStatement)con.prepareStatement(query); 
-							ps.setString(1,firstName);
-							ps.setString(2, LastName);
-							ps.setString(3,major);
-							ps.setString(4,phone);
-							ps.setString(5,email);
-							ps.setString(6,mailingAddress);
-							ps.setString(7,studentType);
-							ps.setInt(8, id);
-							ps.executeUpdate();					
-							
-							session.setAttribute("student", stud);
-							RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/updateProfile.jsp");
-							dispatch.forward(request, response);
-											
-					} catch(SQLException e) {
-						System.out.println("SQL Syntax Error..!!!");
-						e.printStackTrace();			
-					}			
+			session.setAttribute("student", stud);
+			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/updateProfile.jsp");
+			dispatch.forward(request, response);
+
 		} else {
 
 			String firstName = request.getParameter("prof_FirstName");
@@ -102,41 +84,21 @@ public class updateProfileServlet extends HttpServlet {
 			
 			
 			Professor prof = (Professor)session.getAttribute("professor");
-			int id = prof.getID();
-			
-			String query  = "UPDATE PROFESSOR SET first_name=?,last_name=?,professor_qualification=?,research_interest=?,contact_number=?,email=?,office_address=? WHERE professor_id=?"; 
-			//Setting the parameters for the student object that we need to pass to the next jsp 
-			
 			prof.setFirstName(firstName);
 			prof.setLastName(LastName);
 			prof.setQualification(qualification);
 			prof.setResearchInterest(researchInterest);
 			prof.setContactNumber(prof_CellPhone);
 			prof.setEmail(prof_EmailAddress);
-			prof.setMailingAddress(prof_officeAddress);
+			prof.setMailingAddress(prof_officeAddress); 
 			
-			//Database Insertion
-					getDBConnection(request,response);
-					try {
-							PreparedStatement ps=(PreparedStatement)con.prepareStatement(query); 
-							ps.setString(1,firstName);
-							ps.setString(2, LastName);
-							ps.setString(3,qualification);
-							ps.setString(4,researchInterest);
-							ps.setString(5,prof_CellPhone);
-							ps.setString(6,prof_EmailAddress);
-							ps.setString(7,prof_officeAddress);
-							ps.setInt(8, id);
-							ps.executeUpdate();					
-							
-							session.setAttribute("professor", prof);
-							RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/updateProfile.jsp");
-							dispatch.forward(request, response);
-											
-					} catch(SQLException e) {
-						System.out.println("SQL Syntax Error..!!!");
-						e.printStackTrace();			
-					}						
+//Database Insertion
+			getDBConnection(request,response);
+			prof.updatePersonalInfo(prof, con);
+			session.setAttribute("professor", prof);
+			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/updateProfile.jsp");
+			dispatch.forward(request, response);
+			
 		}
 	}
 	public static void getDBConnection(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

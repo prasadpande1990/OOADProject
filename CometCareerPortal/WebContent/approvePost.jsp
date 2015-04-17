@@ -15,7 +15,44 @@
 	ArrayList<Job> job= (ArrayList<Job>)session.getAttribute("jobList");
 %>
 <body>
-<br />
+<br></br>
+<h1><center>Manage Job Posts</center></h1>
+<div align="center" class="navButtons">
+	<table>
+		<tr>
+			<td>
+				<form class="transparent" method="post" action="departmentHome.jsp">
+					<input type="submit" name="HomeButton" value="Home">
+				</form>
+			</td>		
+			<td>
+				<form class="transparent" method="post" action="postJob.jsp">
+					<input type="submit" name="postJobButton" value="Post Job">
+				</form>
+			</td>
+			<td>
+				<form class="transparent" method="post" action="updateProfile.jsp">		
+					<input type="submit" name="updateProfileButton" value="Update Profile">
+				</form>
+			</td>
+			<td>
+				<form class="transparent">
+					<input type="submit" name="searchProfileButton" value="Search Profile">
+				</form>
+			</td>
+			<td>
+				<form class="transparent" method="post" action="approvePostServlet">
+					<input type="submit" name="approvePostButton" value="Aprrove Job Post">
+				</form>
+			</td>		
+			<td>
+				<form class="transparent" method="post" action="LogoutServlet">
+					<input type="submit" name="Logout" value="Logout">
+				</form>
+			</td>
+		</tr>
+	</table>
+</div>
 <form class="approvePost" method="post" action="ApproveRemoveServlet">
 <table class="green" border=5 cellpadding="4" cellspacing="2">
 	<tr>
@@ -27,14 +64,12 @@
 	</tr>
 <% for(int i=0; i<job.size(); i++) { %> 
         <tr>      
-            <td>
-            	<a href="http://localhost:8080/CometCareerPortal/jobDetailServlet"><%=job.get(i).getJob_id()%></a>
-            	<input type="hidden" name="jobId" value="<%=job.get(i).getJob_id()%>">
-            </td>
+            <td><a href="http://localhost:8080/CometCareerPortal/jobDetailServlet"><%=job.get(i).getJob_id()%></a></td>
+            <input type="hidden" name="jobId" value="<%=job.get(i).getJob_id()%>">
             <td><%=job.get(i).getTitle()%></td>
             <td><%=job.get(i).getJob_type()%></td>
             <td><%=job.get(i).getAuthor_id()%></td>
-            <td align="center"><input type="checkbox" name="postCheckBox" value="<%=(i)%>"></td>
+            <td><input type="checkbox" name="postCheckBox" value="<%=(i)%>"></td>
         </tr>
 <% } %>	
 </table>

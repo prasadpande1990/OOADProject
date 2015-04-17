@@ -57,7 +57,18 @@ public class ProjectDetailServlet extends HttpServlet {
 		int id2=0;
 		
 		String role=(String)session.getAttribute("role");
-
+		Project proj = new Project();
+		
+		proj.setProjectTitle(title);
+		proj.setProjectDescription(description);
+		proj.setProjectDomain(project_domain);
+		proj.setProgLanguage(prog_langauages);
+		proj.setDatabaseUsed(database_used);
+		proj.setTeamSize(Integer.parseInt(teamsize));
+		proj.setTools_frameworks(tools_frameworks);
+		
+		getDBConnection(request,response);
+		
 		if(role.equals("Student")) {
 			Student stud=(Student)session.getAttribute("student");
 			id2= stud.getID();
@@ -72,31 +83,9 @@ public class ProjectDetailServlet extends HttpServlet {
 		String keyPressed = request.getParameter("addProject");
 		
 //Database Insertion
-		getDBConnection(request,response);
-		try {
-			PreparedStatement ps=(PreparedStatement)con.prepareStatement("INSERT INTO PROJECTS(project_title,project_description,project_domain,prog_lang,database_used,team_size,tools) VALUES (?,?,?,?,?,?,?)"); 
-			
-			
-			ps.setString(1,title);
-			ps.setString(2,description);
-			ps.setString(3,project_domain);
-			ps.setString(4,prog_langauages);
-			ps.setString(5,database_used);
-			ps.setString(6,teamsize);
-			ps.setString(7,tools_frameworks);
-			ps.executeUpdate();
-			
-			Statement stmt = (Statement) con.createStatement();
-			rs= stmt.executeQuery("SELECT COALESCE(MAX(project_id),0) AS id FROM PROJECTS");	
-			while(rs.next()) {
-				id = rs.getInt("id");
-			}
-			ps=(PreparedStatement)con.prepareStatement(query);
-			ps.setInt(1, id2);
-			ps.setInt(2, id);
-			ps.executeUpdate();
-			
-			if(session.getAttribute("page").equals("UpdateProfile")) {
+					
+		proj.addNewProject(proj, role, con,id2);	
+			if(!session.getAttribute("page").equals("registration")) {
 				if(keyPressed.equals("Save & Next")) {
 
 					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/updateProfile.jsp");
@@ -120,10 +109,6 @@ public class ProjectDetailServlet extends HttpServlet {
 					dispatch.forward(request, response);				
 				}			
 			}
-		} catch(SQLException e) {
-			System.out.println("SQL Syntax Error..!!!");
-			e.printStackTrace();			
-		}		
 }
 
 public static void getDBConnection(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

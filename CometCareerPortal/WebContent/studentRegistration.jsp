@@ -4,6 +4,86 @@
 <html>
 <head>
 <script type="text/javascript">
+
+  function checkForm(form,event)
+  {
+	   /*event.preventDefault();	  
+    // validation fails if the input is blank
+    if(form.FirstName.value == "") {
+      alert("Error: Enter the First Name");
+      form.FirstName.focus();
+      return false;
+    } 
+    if(form.LastName.value == "") {
+        alert("Error: Enter the Last Name");
+        form.LastName.focus();
+        return false;    	
+    } 
+    if(form.Major.value == "Select") {
+        alert("Error: Enter Student's Major");
+        form.Major.focus();
+        return false;    	
+    } 
+    if(form.StudentType.value == "Select") {
+        alert("Error: Enter a valid Student Catagory");
+        form.StudentType.focus();
+        return false;    	
+    }
+    if(form.StudentType.value == "Select") {
+        alert("Error: Enter a valid Student Catagory");
+        form.StudentType.focus();
+        return false;    	
+    } 
+    if(form.email.value == "") {
+        alert("Error: Enter an email Address");
+        form.email.focus();
+        return false;    	
+    } 
+    if(form.CellPhone.value == "") {
+        alert("Error: Enter a Contact Number");
+        form.CellPhone.focus();
+        return false;    	
+    } 
+    if(form.StreetAddress1.value == "") {
+        alert("Error: Enter a Mailing Address");
+        form.StreetAddress1.focus();
+        return false;
+    } 
+    if(form.City.value == "") {
+        alert("Error: Enter a City");
+        form.City.focus();
+        return false;
+    } 
+    if(form.State.value == "") {
+        alert("Error: Enter a City");
+        form.State.focus();
+        return false;
+    } 
+    if(form.Zip.value == "") {
+        alert("Error: Enter a zip code");
+        form.Zip.focus();
+        return false;
+    } 
+    if(form.username.value == "") {
+        alert("Error: Enter a valid username");
+        form.username.focus();
+        return false;
+    } 
+  
+// Email address validation    
+    
+	var password=form.password.value;
+	var confirmPassowrd = form.confirmPassowrd.value;
+	if(password != confirmPassowrd) {
+	    alert('Re-entered password does not match. Please try again');
+	    confirmPassowrd.focus;
+	    return false;		
+	}
+	
+	form.submit(); */
+    return true;
+  }
+
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Student Registration</title>
@@ -11,7 +91,7 @@
 </head>
 <body>
 <h1>Student Registration</h1>
-<form class="studentReg" method="post" action="studentRegistrationServlet">
+<form class="studentReg" method="post" action="studentRegistrationServlet" onsubmit="return checkForm(this,event);">
 <table border="0" cellpadding="5" cellspacing="0" width="600">
 	<tr>
 		<td><b>First and Last Name:</b><b style="color:red;"> *</b></td>
@@ -23,7 +103,7 @@
 	<tr>
 		<td><b>Major:</b><b style="color:red;"> *</b></td>
 		<td>
-    		<select name="Major">
+    		<select id="Major" name="Major">
     			<option value="Select">Select</option>
     			<option value="Computer Science">Computer Science</option>
     			<option value="Telecommunication Engineering">Telecommunication Engineering</option>
@@ -92,7 +172,7 @@
 	<tr>
 		<td align="center">
 			<br />
-			<input type="submit" value="Next" />
+			<input type="submit" value="Next"/>
 		</td>
 		<td align="center">
 			<br />

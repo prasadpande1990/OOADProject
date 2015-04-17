@@ -21,12 +21,12 @@
 		session.setAttribute("student", stud);
 	}	
 	session.setAttribute("role", role);
-	String page1=(String)session.getAttribute("page");
+	
 %>
 <body>
 <h1><%=role%> Projects</h1>
 <h3 class="projectDetails">Add your project here</h3>
-<%if(page1.equals("UpdateProfile")) {%>>
+<%if(!session.getAttribute("page").equals("registration")) {%>
 <div align="center" class="navButtons">
 <table>
 <tr>
@@ -85,7 +85,7 @@
 	</tr>
 </table>
 </div>
-<%}%>
+<%} %>
 <form class="projectDetails" method="post" action="ProjectDetailServlet">
 	<table>
 		<tr>

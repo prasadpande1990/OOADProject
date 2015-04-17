@@ -1,5 +1,12 @@
 package cometClasses;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.mysql.jdbc.Statement;
+
 public class Company implements JobService
 {
 	private int id;
@@ -67,9 +74,54 @@ public class Company implements JobService
 	}
 
 	@Override
-	public void postJob() {
-		// TODO Auto-generated method stub
-		
+	public void postJob(Job job,Connection con,int id)
+	{
+		String query ="INSERT INTO job(title,description,visa_category,job_type,primary_requirement,secondary_requirement,additional_requirement,status,author_id,link) VALUES (?,?,?,?,?,?,?,?,?,?)";
+		try {
+			PreparedStatement ps=(PreparedStatement)con.prepareStatement(query);
+			ps.setString(1, job.getTitle());
+			ps.setString(2, job.getDescription());
+			ps.setString(3, job.getVisa_category());
+			ps.setString(4, job.getJob_type());
+			ps.setString(5, job.getPrimaryreq());
+			ps.setString(6, job.getSecondaryreq());
+			ps.setString(7, job.getAdditionalreq());
+			ps.setString(8,"P");
+			ps.setInt(9,id);
+			ps.setString(10, job.getLink());
+			
+			ps.executeUpdate();
+		} catch(SQLException e) {
+			System.out.println("SQL Syntax Error..!!!");
+			e.printStackTrace();			
+		}						
+	}
+	
+	public Company addNewCompany(Company com,Connection con) {
+		ResultSet rs;
+		try {
+				PreparedStatement ps=(PreparedStatement)con.prepareStatement("INSERT INTO company(name,description,location,website,username,password) values (?,?,?,?,?,?)"); 
+				
+				ps.setString(1,com.getName());
+				ps.setString(2, com.getDescription());
+				ps.setString(3, com.getLocation());
+				ps.setString(4, com.getWebsite());
+				ps.setString(5, com.getUsername());
+				ps.setString(6, com.getPassword());
+				
+				ps.executeUpdate();
+				
+				Statement stmt = (Statement) con.createStatement();
+				rs= stmt.executeQuery("SELECT COALESCE(MAX(company_id),0) AS id FROM COMPANY");	
+				while(rs.next()) {
+					com.setId(rs.getInt(1));
+				}
+	
+		} catch(SQLException e) {
+			System.out.println("SQL Syntax Error..!!!");
+			e.printStackTrace();			
+		}		
+		return com;
 	}
 
 	@Override

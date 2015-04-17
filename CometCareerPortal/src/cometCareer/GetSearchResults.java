@@ -16,21 +16,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import cometClasses.Department;
-import cometClasses.Job;
+import cometClasses.*;
 
-@WebServlet("/ApproveRemoveServlet")
-public class ApproveRemoveServlet extends HttpServlet {
+@WebServlet(description = "Servlet for Posting a Job", urlPatterns = { "/postJobServlet" })
+public class GetSearchResults extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected static String username="root";
-	protected static String password="1234Hjkl";
+	protected static String password="rekon99";
 	protected static  String dbname="CometCareerPortal";
 	protected static  String driver="com.mysql.jdbc.Driver";
 	protected static  Connection con;
 	protected static  ResultSet rs;
 	protected static  String url="jdbc:mysql://localhost:3306/"+dbname;
        
-    public ApproveRemoveServlet() {
+    public GetSearchResults() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,22 +40,47 @@ public class ApproveRemoveServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		String[] post=request.getParameterValues("postCheckBox");
+		ArrayList<Job> jobList = new ArrayList<Job>();
 		HttpSession session = request.getSession();
-		ArrayList<Job> job= (ArrayList<Job>)session.getAttribute("jobList");
-		String query=null;
-		String keyPressed = request.getParameter("approvepost");
-		Department dept = new Department();
-		getDBConnection(request,response);
-		if(keyPressed.equals("Aprrove")) {
-			dept.reviewJobPost(job,post,con);
-		} else {
-			dept.removePost(job, post, con);
-		}
+		
+//Taking Parameters from JSP
+		
+		String title = request.getParameter("oraganization");
+	   String type=request.getParameter("type");
+	   String selected=request.getParameter("skillDropDown1");
+	  // String selectedValue[]=request.getParameterValues("options");
+	   
+		String query="select job_id,title,link from Job where title=? AND type=? AND primary_requirement=?";
+		
+		getDBConnection(request, response);
+		try {
+				PreparedStatement ps=(PreparedStatement)con.prepareStatement(query);
+				ps.setString(1, title);
+				ps.setString(2, type);
+				ps.setString(3, selected);
 			
-		RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/departmentHome.jsp");
-		dispatch.forward(request, response);											
+				
+				ResultSet rs=ps.executeQuery();
+				
+				while(rs.next())
+				{
+	Job job1 = new Job();
+					
+					job1.setJob_id(rs.getInt(1));
+					job1.setTitle(rs.getString(2));
+					job1.setDescription(rs.getString(3));
+					job1.setJob_type(rs.getString(4));
+					job1.setAuthor_id(rs.getInt(5));
+					jobList.add(job1);
+				}
+				session.setAttribute("jobList", jobList);
+					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("SearchResults.jsp");
+					dispatch.forward(request, response);								
+				
+		} catch(SQLException e) {
+			System.out.println("SQL Syntax Error..!!!");
+			e.printStackTrace();			
+		}						
 	}
 	public static void getDBConnection(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
@@ -71,5 +95,4 @@ public class ApproveRemoveServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
 }

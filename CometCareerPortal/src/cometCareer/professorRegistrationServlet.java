@@ -44,10 +44,6 @@ public class professorRegistrationServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		Professor prof = new Professor();
-		Random rm = new Random();
-		String query = "INSERT INTO professor(first_name,last_name,"
-				+ "professor_qualification,research_interest,contact_number,email,office_address,username,password)"
-				+ " values (?,?,?,?,?,?,?,?,?)";
 // Getting the objects from the registration Form JSp		
 		String firstName = request.getParameter("FirstName");
 		String LastName = request.getParameter("LastName");
@@ -56,7 +52,6 @@ public class professorRegistrationServlet extends HttpServlet {
 		String email = request.getParameter("EmailAddress");
 		String phone = request.getParameter("CellPhone");
 		String officeAddress = request.getParameter("officeAddress");
-		String department = request.getParameter("department");
 		String username1 = request.getParameter("username");
 		String password1 = request.getParameter("password");
 		HttpSession session = request.getSession(true);
@@ -74,36 +69,11 @@ public class professorRegistrationServlet extends HttpServlet {
 
 		//Database Insertion
 				getDBConnection(request,response);
-				try {
-					PreparedStatement ps=(PreparedStatement)con.prepareStatement(query); 
-					
-					
-					ps.setString(1,firstName);
-					ps.setString(2, LastName);
-					ps.setString(3,qualification);
-					ps.setString(4,ResearchInterest);
-					ps.setString(5,phone);
-					ps.setString(6,email);
-					ps.setString(7,officeAddress);
-					ps.setString(8,username1);
-					ps.setString(9,password1);
-					
-					ps.executeUpdate();
-
-					Statement stmt = (Statement) con.createStatement();
-					rs= stmt.executeQuery("SELECT COALESCE(MAX(professor_id),0) AS id FROM PROFESSOR");	
-					while(rs.next()) {
-						prof.setID(rs.getInt(1));
-					}											
-					session.setAttribute("professor", prof);
-					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/projectDetails.jsp");
-					dispatch.forward(request, response);
-
-					
-				} catch(SQLException e) {
-					System.out.println("SQL Syntax Error..!!!");
-					e.printStackTrace();			
-				}		
+				prof = prof.addNewProfessor(prof, con);
+				session.setAttribute("professor", prof);
+				session.setAttribute("page", "registration");
+				RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/projectDetails.jsp");
+				dispatch.forward(request, response);
 
 	}
 public static void getDBConnection(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
